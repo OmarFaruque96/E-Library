@@ -1,4 +1,25 @@
+<?php
+    session_start();
+    include('connection.php');
 
+    $session_data = $_SESSION['email'];
+    if($session_data == ""){
+        header("Location:index.php");
+    }
+    else{
+        $query="SELECT * FROM person WHERE person_email='$session_data'";
+        $result=mysqli_query($conn,$query);
+        if(mysqli_num_rows($result) > 0){
+            $row=mysqli_fetch_assoc($result);           
+            $person_name=$row['person_name'];
+        }
+
+        if(isset($_POST['logout_button'])){
+            session_destroy();
+            header('Location:index.php');
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,13 +28,17 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>EduSolution | Home</title>
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>EduSolution | Login</title>
+
+    <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="style.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -22,6 +47,7 @@
         <div class="spinner"></div>
     </div>
 
+    <!-- ##### Header Area Start ##### -->
     <header class="header-area">
 
         <!-- Top Header Area -->
@@ -47,7 +73,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a> 
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -65,7 +91,7 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.php">Home</a></li>
+                                <li><a href="index-login.php">Home</a></li>
                                 <li><a href="#">Books</a>
                                     <ul class="dropdown">
 										<li><a href="#">English Medium</a>
@@ -147,10 +173,22 @@
                             </div>
 
                             <!-- Register / Login -->
-
-                            <div class="register-login-area">
-                                <a href="signup.php" class="btn">Register</a>
-                                <a href="login.php" class="btn active">Login</a>
+                            <div class="login-state d-flex align-items-center">
+                                <div class="user-name mr-30">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data ?></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                                            <a class="dropdown-item" href="profile.php">Profile</a>
+                                            <a class="dropdown-item" href="#">Account Info</a>
+                                            <form action="" method="post">
+                                                <button name="logout_button" class="dropdown-item btn btn-danger">Logout</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="userthumb">
+                                    <img src="img/profile/omar.jpg" alt="">
+                                </div>
                             </div>
 
                         </div>
@@ -163,7 +201,7 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Hero Area Start ##### -->
-    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(img/bg-img/1.jpg);">
+    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(img/bg-img/bg1.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -184,45 +222,45 @@
             <div class="row">
                 <!-- Single Cool Facts Area -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">
+                    <div class="single-cool-facts-area text-center mb-100">
                         <div class="icon">
                             <img src="img/core-img/docs.png" alt="">
                         </div>
                         <h2><span class="counter">1912</span></h2>
-                        <h5>Books </h5>
+                        <h5>Success Stories</h5>
                     </div>
                 </div>
 
                 <!-- Single Cool Facts Area -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">
+                    <div class="single-cool-facts-area text-center mb-100">
                         <div class="icon">
                             <img src="img/core-img/star.png" alt="">
                         </div>
                         <h2><span class="counter">123</span></h2>
-                        <h5>Notes </h5>
+                        <h5>Dedicated Tutors</h5>
                     </div>
                 </div>
 
                 <!-- Single Cool Facts Area -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="750ms">
+                    <div class="single-cool-facts-area text-center mb-100">
                         <div class="icon">
                             <img src="img/core-img/events.png" alt="">
                         </div>
                         <h2><span class="counter">89</span></h2>
-                        <h5>Teachers</h5>
+                        <h5>Scheduled Events</h5>
                     </div>
                 </div>
 
                 <!-- Single Cool Facts Area -->
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">
+                    <div class="single-cool-facts-area text-center mb-100">
                         <div class="icon">
                             <img src="img/core-img/earth.png" alt="">
                         </div>
                         <h2><span class="counter">56</span></h2>
-                        <h5>Subscriber</h5>
+                        <h5>Available Courses</h5>
                     </div>
                 </div>
             </div>
@@ -236,7 +274,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>Popular Notes </h3>
+                        <h3>Popular Online Courses</h3>
                     </div>
                 </div>
             </div>
@@ -244,17 +282,17 @@
             <div class="row">
                 <!-- Single Popular Course -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
-                        <img src="img/notes/cal.jpg" alt="">
+                    <div class="single-popular-course mb-100">
+                        <img src="img/bg-img/c1.jpg" alt="">
                         <!-- Course Content -->
                         <div class="course-content">
-                            <h4>Calculus</h4>
+                            <h4>English Grammar</h4>
                             <div class="meta d-flex align-items-center">
-                                <a href="#">Lathi Ding</a>
+                                <a href="#">Sarah Parker</a>
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">&amp; Mathematics</a>
+                                <a href="#">Art &amp; Design</a>
                             </div>
-                            <p>The most popular mathematic books by lathi ding. Cotains Calculus and statitical problems.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                         </div>
                         <!-- Seat Rating Fee -->
                         <div class="seat-rating-fee d-flex justify-content-between">
@@ -275,17 +313,17 @@
 
                 <!-- Single Popular Course -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="500ms">
-                        <img src="img/bg-img/c3.jpg" alt="">
+                    <div class="single-popular-course mb-100">
+                        <img src="img/bg-img/c2.jpg" alt="">
                         <!-- Course Content -->
                         <div class="course-content">
                             <h4>Vocabulary</h4>
                             <div class="meta d-flex align-items-center">
                                 <a href="#">Sarah Parker</a>
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">&amp;English</a>
+                                <a href="#">Art &amp; Design</a>
                             </div>
-                            <p>English vocabulary is the most important thing for being expert in english</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                         </div>
                         <!-- Seat Rating Fee -->
                         <div class="seat-rating-fee d-flex justify-content-between">
@@ -298,7 +336,7 @@
                                 </div>
                             </div>
                             <div class="course-fee h-100">
-                                <a href="#">$25</a>
+                                <a href="#">$20</a>
                             </div>
                         </div>
                     </div>
@@ -306,17 +344,17 @@
 
                 <!-- Single Popular Course -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="750ms">
-                        <img src="img/notes/wr.jpg" alt="">
+                    <div class="single-popular-course mb-100">
+                        <img src="img/bg-img/c3.jpg" alt="">
                         <!-- Course Content -->
                         <div class="course-content">
                             <h4>Expository writing</h4>
                             <div class="meta d-flex align-items-center">
-                                <a href="#">Omar Faruque</a>
+                                <a href="#">Sarah Parker</a>
                                 <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                                <a href="#">&amp; Writing</a>
+                                <a href="#">Art &amp; Design</a>
                             </div>
-                            <p>This note contains the basic of free hand writing concepts.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
                         </div>
                         <!-- Seat Rating Fee -->
                         <div class="seat-rating-fee d-flex justify-content-between">
@@ -329,7 +367,7 @@
                                 </div>
                             </div>
                             <div class="course-fee h-100">
-                                <a href="#">$15</a>
+                                <a href="#">$45</a>
                             </div>
                         </div>
                     </div>
@@ -352,26 +390,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="tutors-slide owl-carousel wow fadeInUp" data-wow-delay="250ms">
-
-                        <!-- Single Tutors Slide -->
-                        <div class="single-tutors-slides">
-                            <!-- Tutor Thumbnail -->
-                            <div class="tutor-thumbnail">
-                                <img src="img/profile/mehedi.jpg" alt="">
-                            </div>
-                            <!-- Tutor Information -->
-                            <div class="tutor-information text-center">
-                                <h5>Mehedi Hasan</h5>
-                                <span>Teacher</span>
-                                <p>Best Mathematics techers in Dhaka City. Avaiable area is in Dhanmondi-27. </p>
-                                <div class="social-info">
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="tutors-slide owl-carousel">
 
                         <!-- Single Tutors Slide -->
                         <div class="single-tutors-slides">
@@ -381,9 +400,9 @@
                             </div>
                             <!-- Tutor Information -->
                             <div class="tutor-information text-center">
-                                <h5>Monali Thakur</h5>
+                                <h5>Alex Parker</h5>
                                 <span>Teacher</span>
-                                <p>Web developer teacher for freelancher. Avaiable in Badda.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
                                 <div class="social-info">
                                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -396,13 +415,13 @@
                         <div class="single-tutors-slides">
                             <!-- Tutor Thumbnail -->
                             <div class="tutor-thumbnail">
-                                <img src="img/profile/sadid.jpg" alt="">
+                                <img src="img/bg-img/t2.png" alt="">
                             </div>
                             <!-- Tutor Information -->
                             <div class="tutor-information text-center">
-                                <h5>Sadid Hasan</h5>
+                                <h5>Alex Parker</h5>
                                 <span>Teacher</span>
-                                <p>Science teachers at Science Academy. Avaiable area is in Gulshan.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
                                 <div class="social-info">
                                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -410,16 +429,18 @@
                                 </div>
                             </div>
                         </div>
-						<div class="single-tutors-slides">
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
                             <!-- Tutor Thumbnail -->
                             <div class="tutor-thumbnail">
-                                <img src="img/profile/piya.jpg" alt="">
+                                <img src="img/bg-img/t3.png" alt="">
                             </div>
                             <!-- Tutor Information -->
                             <div class="tutor-information text-center">
-                                <h5>Piya Puri Marma</h5>
+                                <h5>Alex Parker</h5>
                                 <span>Teacher</span>
-                                <p>Best Mathematics techers in Dhaka City. Avaiable area is in Dhanmondi-27. </p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
                                 <div class="social-info">
                                     <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -427,7 +448,44 @@
                                 </div>
                             </div>
                         </div>
-                       
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="img/bg-img/t4.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Tutors Slide -->
+                        <div class="single-tutors-slides">
+                            <!-- Tutor Thumbnail -->
+                            <div class="tutor-thumbnail">
+                                <img src="img/bg-img/t5.png" alt="">
+                            </div>
+                            <!-- Tutor Information -->
+                            <div class="tutor-information text-center">
+                                <h5>Alex Parker</h5>
+                                <span>Teacher</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae.</p>
+                                <div class="social-info">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -438,12 +496,12 @@
     <!-- ##### Register Now Start ##### -->
     <section class="register-now section-padding-100-0 d-flex justify-content-between align-items-center" style="background-image: url(img/core-img/texture.png);">
         <!-- Register Contact Form -->
-        <div class="register-contact-form mb-100 wow fadeInUp" data-wow-delay="250ms">
+        <div class="register-contact-form mb-100">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="forms">
-                            <h4>Message to send</h4>
+                            <h4>Courses For Free</h4>
                             <form action="#" method="post">
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
@@ -478,9 +536,9 @@
         </div>
 
         <!-- Register Now Countdown -->
-        <div class="register-now-countdown mb-100 wow fadeInUp" data-wow-delay="500ms">
+        <div class="register-now-countdown mb-100">
             <h3>Register Now</h3>
-            <p>Do fast registration to get more new updates in time. and get 3 free notes. This offers is only for students below undergraduate. </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum laoreet elit, sit amet tincidunt mauris ultrices vitae. Donec bibendum tortor sed mi faucibus vehicula. Sed erat lorem</p>
             <!-- Register Countdown -->
             <div class="register-countdown">
                 <div class="events-cd d-flex flex-wrap" data-countdown="2019/03/01"></div>
@@ -495,7 +553,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>Upcoming Tutorials</h3>
+                        <h3>Upcoming events</h3>
                     </div>
                 </div>
             </div>
@@ -503,12 +561,12 @@
             <div class="row">
                 <!-- Single Upcoming Events -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="250ms">
+                    <div class="single-upcoming-events mb-50">
                         <!-- Events Thumb -->
                         <div class="events-thumb">
-                            <img src="img/Tutorials/net.png" alt="">
+                            <img src="img/bg-img/e1.jpg" alt="">
                             <h6 class="event-date">August 26</h6>
-                            <h4 class="event-title">Network Security</h4>
+                            <h4 class="event-title">Networking Day</h4>
                         </div>
                         <!-- Date & Fee -->
                         <div class="date-fee d-flex justify-content-between">
@@ -524,12 +582,12 @@
 
                 <!-- Single Upcoming Events -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="500ms">
+                    <div class="single-upcoming-events mb-50">
                         <!-- Events Thumb -->
                         <div class="events-thumb">
-                            <img src="img/Tutorials/mobile.jpg" alt="">
+                            <img src="img/bg-img/e2.jpg" alt="">
                             <h6 class="event-date">August 7</h6>
-                            <h4 class="event-title">Mobile App Development</h4>
+                            <h4 class="event-title">Open Doors Day</h4>
                         </div>
                         <!-- Date & Fee -->
                         <div class="date-fee d-flex justify-content-between">
@@ -545,12 +603,12 @@
 
                 <!-- Single Upcoming Events -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-upcoming-events mb-50 wow fadeInUp" data-wow-delay="750ms">
+                    <div class="single-upcoming-events mb-50">
                         <!-- Events Thumb -->
                         <div class="events-thumb">
-                            <img src="img/Tutorials/bio2.jpeg" alt="">
+                            <img src="img/bg-img/e3.jpg" alt="">
                             <h6 class="event-date">August 3</h6>
-                            <h4 class="event-title">Introducing to Bioinformatics</h4>
+                            <h4 class="event-title">Creative Leadership</h4>
                         </div>
                         <!-- Date & Fee -->
                         <div class="date-fee d-flex justify-content-between">
@@ -567,7 +625,59 @@
         </div>
     </section>
     <!-- ##### Upcoming Events End ##### -->
-	
+
+    <!-- ##### Blog Area Start ##### -->
+    <section class="blog-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>From Our Blog</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Blog Area -->
+                <div class="col-12 col-md-6">
+                    <div class="single-blog-area mb-100">
+                        <img src="img/blog-img/1.jpg" alt="">
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <a href="#" class="blog-headline">
+                                <h4>English Grammer</h4>
+                            </a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Blog Area -->
+                <div class="col-12 col-md-6">
+                    <div class="single-blog-area mb-100">
+                        <img src="img/blog-img/2.jpg" alt="">
+                        <!-- Blog Content -->
+                        <div class="blog-content">
+                            <a href="#" class="blog-headline">
+                                <h4>English Grammer</h4>
+                            </a>
+                            <div class="meta d-flex align-items-center">
+                                <a href="#">Sarah Parker</a>
+                                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                <a href="#">Art &amp; Design</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- ##### Blog Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
@@ -582,7 +692,7 @@
                             <!-- <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a> -->
                         </div>                     
                         <p><a href="#">
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="" aria-hidden="true"></i> by <a href="" target="_blank">Engineer Brother Company</a>
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Engineer Brother Company</a>
 						</p>
                     </div>
                 </div>

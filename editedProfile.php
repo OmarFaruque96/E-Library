@@ -10,23 +10,40 @@
         $query="SELECT * FROM person WHERE person_email='$session_data'";
         $result=mysqli_query($conn,$query);
         if(mysqli_num_rows($result) > 0){
-            $row=mysqli_fetch_assoc($result);           
-            $person_name=$row['person_name'];
-            $person_email=$row['person_email'];
-            $person_phone=$row['person_phone'];
-            $person_address=$row['person_address'];
-            $person_university=$row['person_university'];
-            $person_department=$row['person_department'];
-            $person_profession=$row['person_profession'];
-            $person_experience=$row['person_experience'];
+          $row=mysqli_fetch_assoc($result);           
+          $person_name=$row['person_name'];
+          $person_email=$row['person_email'];
+          $person_phone=$row['person_phone'];
+          $person_address=$row['person_address'];
+          $person_university=$row['person_university'];
+          $person_department=$row['person_department'];
+          $person_profession=$row['person_profession'];
+          $person_experience=$row['person_experience'];
         }
 
+        if(isset($_POST['save_button'])){
+          $name=$_POST['name'];
+          $email=$_POST['email'];
+          $phone=$_POST['phone'];
+          $address=$_POST['address'];
+          $university=$_POST['university'];
+          $department=$_POST['department'];
+          $profession=$_POST['profession'];
+          $experience=$_POST['experience'];
+
+          $query2 = "UPDATE person SET person_name = '$name', person_email = '$email', person_phone = '$phone', person_address = '$address', person_university = '$university',
+          person_department = '$department', person_profession = '$profession', person_experience = '$experience' WHERE person_email = '$session_data'";
+          mysqli_query($conn,$query2);
+          header("Location:profile.php");
+        }
+        
         if(isset($_POST['logout_button'])){
-            session_destroy();
-            header('Location:index.php');
+          session_destroy();
+          header('Location:index.php');
         }
     }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,13 +53,13 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>EduSolution | Profile</title>
+    <title>EduSolution | Home</title>
     <link rel="icon" href="img/core-img/favicon.ico">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 	<link rel="stylesheet" href="style.css">
 </head>
 
@@ -180,13 +197,11 @@
                             <div class="login-state d-flex align-items-center">
                                 <div class="user-name mr-30">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data ?></a>
+                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data?></a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="#">Account Info</a>
-                                            <form action="" method="post">
-                                                <button name="logout_button" class="dropdown-item btn btn-danger">Logout</button>
-                                            </form>
+                                            <button class="dropdown-item">Logout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -219,29 +234,11 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="profile-head">
-                                    <h5>
-                                        Omar Faruque
-                                    </h5>
-                                    <h6>
-                                        Student at UIU
-                                    </h6>
-                                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <!-- upper right coloum -->
                     </div>
-                    <div class="col-md-2" >
-						<a href="editedProfile.php"><button type="button" class="btn btn-primary" value="">Edit Profile </button> </a>
-						
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
                     </div>
-					
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -273,91 +270,92 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_name ?></p>
-                                            </div>
-                                        </div>
-										<div class="row">
-                                            <div class="col-md-6">
-                                                <label>University </label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_university ?></p>
-                                            </div>
-                                        </div>
-										<div class="row">
-                                            <div class="col-md-6">
-                                                <label>Department </label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_department ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_email ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_phone ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Profession</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_profession ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Profession</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_profession ?></p>
-                                            </div>
-                                        </div>
-										<div class="col-md-12" >
-							
-									</div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience year</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_experience ?></p>
-                                            </div>
-                                        </div>
+                        <div class="container">
+    <h1>Edit Profile</h1>
+	
+  	<hr>
+	<div class="row">
+      <!-- left column -->
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $person_address ?></p>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+			  
+			  <!-- edit form column -->
+			  <div class="col-md-9 personal-info">
+				<div class="alert alert-info alert-dismissable">
+				  <a class="panel-close close" data-dismiss="alert">×</a> 
+				  <i class="fa fa-coffee"></i>
+				  This is an <strong>.alert</strong>. You are going to change your profile information.
+				</div>
+				<h3>Personal info</h3>
+				
+				<form class="form-horizontal" role="form" action="" method="post">
+				  <div class="form-group">
+					<label class="col-lg-3 control-label">Full name:</label>
+					<div class="col-lg-8">
+					  <input class="form-control" name="name" type="text" value='<?php echo $person_name ?>'>
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label class="col-lg-3 control-label">University: ..</label>
+					<div class="col-lg-8">
+					  <input class="form-control" name="university" type="text" value='<?php echo $person_university ?>' >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-lg-3 control-label">Department:</label>
+					<div class="col-lg-8">
+					  <input class="form-control" name="department" type="text" value='<?php echo $person_department ?>' >
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label class="col-md-3 control-label">Mail:</label>
+					<div class="col-md-8">
+					  <input class="form-control" name="email" type="email" value='<?php echo $person_email ?>' >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-md-3 control-label">Phone</label>
+					<div class="col-md-8">
+					  <input class="form-control" name="phone" type="text" value='<?php echo $person_phone ?>' >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-md-3 control-label">Profession: ..</label>
+					<div class="col-md-8">
+					  <input class="form-control" name="profession" type="text" value='<?php echo $person_profession ?>' >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-md-3 control-label">Experience Year: ..</label>
+					<div class="col-md-8">
+					  <input class="form-control" name="experience" type="text" value='<?php echo $person_experience ?>' >
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-md-3 control-label">Address: ..</label>
+					<div class="col-md-8">
+					  <input class="form-control" name="address" type="text" value='<?php echo $person_address ?>'>
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					<label class="col-md-3 control-label"></label>
+					<div class="col-md-8">
+						<button type="submit" name="save_button" class="btn btn-primary">Save Changes</button>
+					  <span></span>
+					    <a href="profile.php"><input type="button"  class="btn btn-default" value="Cancel"></a>
+					</div>
+				  </div>
+				</form>
+			  </div>
+		  </div>
+		</div>
+		<hr>
+    </div>
+ </div>
+				
+				
             </form>           
         </div>
 
