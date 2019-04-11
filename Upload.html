@@ -11,7 +11,14 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-
+<style>
+	hr{
+		border: 1px solid orange;
+	}
+	.padd{
+		padding:0px 20px;
+	}
+</style>
 <body>
     <!-- Preloader -->
     <div id="preloader">
@@ -156,57 +163,184 @@
             </div>
         </div>
     </header>
-    <!--  Header Area End  -->
+    <!--  Upload area Start  -->
+    
+<div class="container">
+			<hr>
+			<div class="row">
+				<div class="col-3">
+					
+				</div>
+				<div class="col-6">
+					<button class="btn btn-md btn-info" data-toggle="collapse" data-target="#videoUpload">Video Upload</button>    <button class="btn btn-md btn-warning" data-toggle="collapse" data-target="#pdfUpload">Pdf Upload</button>    <button class="btn btn-md btn-success" data-toggle="collapse" data-target="#photosUpload"> Photos Upload</button>	
+				</div>
+				<div class="col-3">
+					
+				</div>
+			</div>
+			<hr>
+			<!--option provide for where to upload a file-->
+			<div id="videoUpload" class="collapse">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-danger">
+							<div class="row" style="padding:5px 20px">
+								<div class="col-xs-3 padd" >
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Medium</option>
+										<option value="" >Bangla Medium</option>
+										<option value="" > English Medium</option>
+										<option value="" > Undergraduate</option>
+										<option value="" > Graduate</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Class</option>
+										<option value="" >one</option>
+										<option value="" > two</option>
+										<option value="" > three</option>
+										<option value="" > four</option>
+										<option value="" > five</option>
+										<option value="" > six</option>
+										<option value="" > seven</option>
+										<option value="" > eight</option>
+										<option value="" > nine</option>
+										<option value="" > ten</option>
+										<option value="" > eleven</option>
+										<option value="" > twelve</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Subject</option>
+										<option value="" >Bangla</option>
+										<option value="" > English</option>
+										<option value="" > Math</option>
+										<option value="" > Physics</option>
+										<option value="" > Chemestry</option>
+										<option value="" > Algorithm</option>
+										<option value="" > C Programming</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select topic</option>
+										<option value="" >Introduction</option>
+										<option value="" > Array</option>
+										<option value="" > Loop</option>
+										<option value="" > Function</option>
+										<option value="" > Pointer</option>
+										<option value="" > File</option>
+										
+									</select>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-success">
+						<div class="form row">
+						<div class="col-10">
+							<input class="form-control" type="text" placeholder="enter the video link here">
+						</div>
+						<div class="col-2">
+							<button class="btn btn-md btn-info" type="submit">Upload</button>
+						</div>
+						</div>
+						</a>
+					</div>
+			</div>
+			
+			<!--Pdf file Upload Collaspe code Section here -->
+				<div id="pdfUpload" class="collapse">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-danger">
+							<div class="row" style="padding:5px 20px">
+								<div class="col-xs-3 padd" >
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Medium</option>
+										<option value="" >Bangla Medium</option>
+										<option value="" > English Medium</option>
+										<option value="" > Undergraduate</option>
+										<option value="" > Graduate</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Class</option>
+										<option value="" >one</option>
+										<option value="" > two</option>
+										<option value="" > three</option>
+										<option value="" > four</option>
+										<option value="" > five</option>
+										<option value="" > six</option>
+										<option value="" > seven</option>
+										<option value="" > eight</option>
+										<option value="" > nine</option>
+										<option value="" > ten</option>
+										<option value="" > eleven</option>
+										<option value="" > twelve</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select Subject</option>
+										<option value="" >Bangla</option>
+										<option value="" > English</option>
+										<option value="" > Math</option>
+										<option value="" > Physics</option>
+										<option value="" > Chemestry</option>
+										<option value="" > Algorithm</option>
+										<option value="" > C Programming</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="" >
+										<option value="" selected> Select topic</option>
+										<option value="" >Introduction</option>
+										<option value="" > Array</option>
+										<option value="" > Loop</option>
+										<option value="" > Function</option>
+										<option value="" > Pointer</option>
+										<option value="" > File</option>
+										
+									</select>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-success">
+						<div class="row">
+							<!--section for upload pdf file here -->
+							<div class="col-10">
+								<!--#############-->
+								<form method=" " action=" ">
+									<input type="file" name="" accept="image/*,.pdf">
+								</form>
+							</div>
+							<div class="col-2">
+								<button class="btn btn-md btn-info" type="submit">Upload</button>
+							</div>
+						</div>
+						</a>
+					</div>
+					<!--Copy the previous code and paste here. but give a option for choose file instead of paste the link and upload , user will-->
+					
+				</div>
+			<!--Photos file Upload Collaspe code Section here -->
+				<div id="photosUpload" class="collapse">
+					<div class="alert alert-danger">
+					  <strong>Wait a Min!</strong> Option is under construction right now.
+					</div>
+					<!--Copy the previous code and paste here. but give a option for choose file instead of paste the link and upload , user will-->
+				</div>
+			
+          
+</div>
 
-    <!--  Google Maps  -->
-	
-    <div class="map-area">
-        <div id="googleMap"></div> 
-    </div>
-
-    <!--  Contact Area Start  -->
-    <section class="contact-area">
-        <div class="container">
-            <!--upload code version here-->
-        </div>
-    </section>
-    <!--  Contact Area End -->
-
-    <!--  Footer Area Start  -->
-    <footer class="footer-area">
-        <!-- Top Footer Area -->
-        <div class="top-footer-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Footer Logo -->
-                        <div class="footer-logo">
-                            <!-- <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a> -->
-                        </div>                     
-                        <p><a href="#">
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Engineer Brother Company</a>
-						</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Footer Area -->
-        <div class="bottom-footer-area d-flex justify-content-between align-items-center">
-            <!-- Contact Info -->
-            <div class="contact-info">
-                <a href="#"><span>Phone:</span> +880 1773 357272</a>
-                <a href="#"><span>Email:</span> engineerbrother.cse@gmail.com</a>
-            </div>
-            <!-- Follow Us -->
-            <div class="follow-us">
-                <span>Follow us</span>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
-        </div>
-    </footer>
     <!--  Footer Area End  -->
 
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
