@@ -1,16 +1,22 @@
 <?php
-	//session_start();
-	include("connection.php");
+	session_start();
+    include('connection.php');
 
-	  if(isset($_POST['uploadVideos'])){
-		$mediaType=1; 
-		$link=$_POST['linkofVideo'];  
-
-		$query="INSERT INTO gallery (type_id, link) 
-				VALUES ('$mediaType', '$link');";
-		mysqli_query($conn,$query);
-		header("");
-	  }
+    $session_data = $_SESSION['email'];
+    if($session_data == ""){
+        header("Location:index.php");
+	}
+	else{		
+		if(isset($_POST['uploadVideos'])){
+		  $mediaType=1; 
+		  $link=$_POST['linkofVideo'];  
+  
+		  $query="INSERT INTO gallery (type_id, link) 
+				  VALUES ('$mediaType', '$link');";
+		  mysqli_query($conn,$query);
+		  header("");
+		}
+	}
 ?>
 
 <?php
