@@ -1,5 +1,50 @@
 <?php
-	include 'connection.php';
+	//session_start();
+	include("connection.php");
+
+	  if(isset($_POST['uploadVideos'])){
+		$mediaType=1; 
+		$link=$_POST['linkofVideo'];  
+
+		$query="INSERT INTO gallery (type_id, link) 
+				VALUES ('$mediaType', '$link');";
+		mysqli_query($conn,$query);
+		header("");
+	  }
+?>
+
+<?php
+	include_once 'connection.php';
+	
+	if(isset($_POST['pdfUpload']))
+	{    
+	$type=2;
+	 $file = rand(1000,100000)."-".$_FILES['file']['name'];
+	 $file_loc = $_FILES['file']['tmp_name'];
+
+	 $folder="uploads/";
+	 
+	 $new_file_name = strtolower($file);
+	 // make file name in lower case
+	 
+	 $final_file=str_replace(' ','-',$new_file_name);
+	 
+		 if(move_uploaded_file($file_loc,$folder.$final_file))
+		 {
+		  $sql="INSERT INTO gallery(,type_id,link) VALUES('$type','$final_file')";
+		  mysqli_query($conn,$sql);
+		  ?>
+		 
+		  <?php
+		 }
+		 
+		 else
+		 {
+		  ?>
+		  
+		  <?php
+		 }
+	}
 ?>
 
 
@@ -56,6 +101,55 @@
               req.onreadystatechange=function(){
                 if(this.status==200 && this.readyState == 4){
                     document.getElementById('courseID').innerHTML=this.responseText;
+                }
+              }
+              req.open("GET","subjectAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		
+		
+		
+		
+		
+		
+		function sectorfunc2(){
+          var selval = document.getElementById('sectorID2').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('classID2').innerHTML=this.responseText;
+                }
+              }
+
+              req.open("GET","ajax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		<!--ajax Script for class part here-->
+		function levelfunc2(){
+          var selval = document.getElementById('classID2').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('subjectID2').innerHTML=this.responseText;
+                }
+              }
+
+              req.open("GET","classAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		<!--ajax script for subject part here -->
+		function classfunc2(){
+          var selval = document.getElementById('subjectID2').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('courseID2').innerHTML=this.responseText;
                 }
               }
               req.open("GET","subjectAjax.php?data="+selval,true);
@@ -222,25 +316,29 @@
     
 <div class="container">
 			<hr>
-			<div class="row">
-				<div class="col-3">
-					
+				<div class="row">
+					<div class="col-3">
+						
+					</div>
+					<div class="col-6">
+						<button class="btn btn-md btn-info" data-toggle="collapse" name="" data-target="#videoUpload" id="video">Video Upload</button>    <button class="btn btn-md btn-warning" data-toggle="collapse" data-target="#pdfUpload">Pdf Upload</button>    <button class="btn btn-md btn-success" data-toggle="collapse" data-target="#photosUpload"> Photos Upload</button>	
+					</div>
+					<div class="col-3">
+						
+					</div>
 				</div>
-				<div class="col-6">
-					<button class="btn btn-md btn-info" data-toggle="collapse" data-target="#videoUpload" value="1" id="video">Video Upload</button>    <button class="btn btn-md btn-warning" data-toggle="collapse" data-target="#pdfUpload">Pdf Upload</button>    <button class="btn btn-md btn-success" data-toggle="collapse" data-target="#photosUpload"> Photos Upload</button>	
-				</div>
-				<div class="col-3">
-					
-				</div>
-			</div>
 			<hr>
 			<!--option provide for where to upload a file-->
+			
+			
 			<div id="videoUpload" class="collapse">
+					<!--<form method="POST">-->
+					
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-danger">
-							<div class="row" style="padding:5px 20px">
+						<form action="" method="post">
+							<div class="row warning" style="padding:5px 20px">
 								<div class="col-xs-3 padd" >
-									<form>
+								
 										<select class="form-control" name="sector" id="sectorID" onchange="sectorfunc()" >
 											<option value="" selected> Select Medium</option>
 											<option value="1" >Bangla Medium</option>
@@ -248,123 +346,108 @@
 											<option value="3" > Undergraduate</option>
 											<option value="4" > Others</option>
 										</select>
-									</form>	
+									
 								</div>
 								<div class="col-xs-3 padd">
-									<form>
-										<select class="form-control" name="" id="classID" onchange="levelfunc()">
+									
+										<select class="form-control" name="level" id="classID" onchange="levelfunc()">
 											<option value="" selected> Select Level</option>
 												
 										</select>
-										
-									</form>
+									
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="subjectID" onchange="classfunc()" >
+									<select class="form-control" name="class" id="subjectID" onchange="classfunc()" >
 										<option value="" selected> Select Class</option>
 										
 									</select>
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="courseID" >
+									<select class="form-control" name="subject" id="courseID" >
 										<option value="" selected> Select Course</option>
 									</select>
 								</div>
 							</div>
-						</a>
-						
+						</form>
+						<hr>
 					</div>
-					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-success">
-						<div class="form row">
-						<div class="col-10">
-							<input class="form-control" type="text" placeholder="enter the video link here">
+					<form action="" method="post">
+						<div class="list-group">
+							
+							<div class="form row">
+							<div class="col-10">
+								<input class="form-control" name="linkofVideo" type="text" placeholder="enter the video link here">
+							</div>
+							<div class="col-2">
+							
+								<button type="submit" name="uploadVideos" class="btn btn-md btn-info" >Upload</button>
+								
+							</div>
+							</div>
+							
 						</div>
-						<div class="col-2">
-							<button class="btn btn-md btn-info" type="submit">Upload</button>
-						</div>
-						</div>
-						</a>
-					</div>
+					
+					</form>
 			</div>
 			
 			<!--Pdf file Upload Collaspe code Section here -->
 				<div id="pdfUpload" class="collapse">
+				<form action="" method="post" enctype="multipart/form-data">
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-danger">
-							<div class="row" style="padding:5px 20px">
+						
+							<div class="row warning" style="padding:5px 20px">
 								<div class="col-xs-3 padd" >
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select Medium</option>
-										<option value="" >Bangla Medium</option>
-										<option value="" > English Medium</option>
-										<option value="" > Undergraduate</option>
-										<option value="" > Graduate</option>
-									</select>
+								
+										<select class="form-control" name="sector2" id="sectorID2" onchange="sectorfunc2()" >
+											<option value="" selected> Select Medium</option>
+											<option value="1" >Bangla Medium</option>
+											<option value="2" > English Medium</option>
+											<option value="3" > Undergraduate</option>
+											<option value="4" > Others</option>
+										</select>
+									
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
+									
+										<select class="form-control" name="level2" id="classID2" onchange="levelfunc2()">
+											<option value="" selected> Select Level</option>
+												
+										</select>
+									
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="class2" id="subjectID2" onchange="classfunc2()" >
 										<option value="" selected> Select Class</option>
-										<option value="" >one</option>
-										<option value="" > two</option>
-										<option value="" > three</option>
-										<option value="" > four</option>
-										<option value="" > five</option>
-										<option value="" > six</option>
-										<option value="" > seven</option>
-										<option value="" > eight</option>
-										<option value="" > nine</option>
-										<option value="" > ten</option>
-										<option value="" > eleven</option>
-										<option value="" > twelve</option>
 									</select>
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select Subject</option>
-										<option value="" >Bangla</option>
-										<option value="" > English</option>
-										<option value="" > Math</option>
-										<option value="" > Physics</option>
-										<option value="" > Chemestry</option>
-										<option value="" > Algorithm</option>
-										<option value="" > C Programming</option>
-									</select>
-								</div>
-								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select topic</option>
-										<option value="" >Introduction</option>
-										<option value="" > Array</option>
-										<option value="" > Loop</option>
-										<option value="" > Function</option>
-										<option value="" > Pointer</option>
-										<option value="" > File</option>
-										
+									<select class="form-control" name="subject2" id="courseID2" >
+										<option value="" selected> Select Course</option>
 									</select>
 								</div>
 							</div>
-						</a>
 						
+						<hr>
 					</div>
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-success">
-						<div class="row">
-							<!--section for upload pdf file here -->
-							<div class="col-10">
-								<!--#############-->
-								<form method=" " action=" ">
-									<input type="file" name="" accept="image/*,.pdf">
-								</form>
+						
+						<div class="row info">
+							
+							<div class="col-10">	
+								
+									<input type="file" name="file" accept="image/*,.pdf">
+								
 							</div>
 							<div class="col-2">
-								<button class="btn btn-md btn-info" type="submit">Upload</button>
+							
+								<button class="btn btn-md btn-info" name="pdfUpload" type="submit">Upload</button>
+								
 							</div>
 						</div>
-						</a>
+						
 					</div>
 					<!--Copy the previous code and paste here. but give a option for choose file instead of paste the link and upload , user will-->
-					
+				</form>	
 				</div>
 			<!--Photos file Upload Collaspe code Section here -->
 				<div id="photosUpload" class="collapse">
