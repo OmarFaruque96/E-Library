@@ -1,3 +1,8 @@
+<?php
+	include 'connection.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +14,56 @@
     <title>EduSolution | Home</title>
     <link rel="icon" href="img/core-img/favicon.ico">
     <link rel="stylesheet" href="style.css">
+	
+	
+	
+	<script>
+	<!--Ajax Script for sector part here -->
+        function sectorfunc(){
+          var selval = document.getElementById('sectorID').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('classID').innerHTML=this.responseText;
+                }
+              }
+
+              req.open("GET","ajax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		<!--ajax Script for class part here-->
+		function levelfunc(){
+          var selval = document.getElementById('classID').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('subjectID').innerHTML=this.responseText;
+                }
+              }
+
+              req.open("GET","classAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		<!--ajax script for subject part here -->
+		function classfunc(){
+          var selval = document.getElementById('subjectID').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('courseID').innerHTML=this.responseText;
+                }
+              }
+              req.open("GET","subjectAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
+    </script>
+	
 
 </head>
 <style>
@@ -172,7 +227,7 @@
 					
 				</div>
 				<div class="col-6">
-					<button class="btn btn-md btn-info" data-toggle="collapse" data-target="#videoUpload">Video Upload</button>    <button class="btn btn-md btn-warning" data-toggle="collapse" data-target="#pdfUpload">Pdf Upload</button>    <button class="btn btn-md btn-success" data-toggle="collapse" data-target="#photosUpload"> Photos Upload</button>	
+					<button class="btn btn-md btn-info" data-toggle="collapse" data-target="#videoUpload" value="1" id="video">Video Upload</button>    <button class="btn btn-md btn-warning" data-toggle="collapse" data-target="#pdfUpload">Pdf Upload</button>    <button class="btn btn-md btn-success" data-toggle="collapse" data-target="#photosUpload"> Photos Upload</button>	
 				</div>
 				<div class="col-3">
 					
@@ -185,53 +240,34 @@
 						<a href="#" class="list-group-item list-group-item-danger">
 							<div class="row" style="padding:5px 20px">
 								<div class="col-xs-3 padd" >
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select Medium</option>
-										<option value="" >Bangla Medium</option>
-										<option value="" > English Medium</option>
-										<option value="" > Undergraduate</option>
-										<option value="" > Graduate</option>
-									</select>
+									<form>
+										<select class="form-control" name="sector" id="sectorID" onchange="sectorfunc()" >
+											<option value="" selected> Select Medium</option>
+											<option value="1" >Bangla Medium</option>
+											<option value="2" > English Medium</option>
+											<option value="3" > Undergraduate</option>
+											<option value="4" > Others</option>
+										</select>
+									</form>	
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select Class</option>
-										<option value="" >one</option>
-										<option value="" > two</option>
-										<option value="" > three</option>
-										<option value="" > four</option>
-										<option value="" > five</option>
-										<option value="" > six</option>
-										<option value="" > seven</option>
-										<option value="" > eight</option>
-										<option value="" > nine</option>
-										<option value="" > ten</option>
-										<option value="" > eleven</option>
-										<option value="" > twelve</option>
-									</select>
-								</div>
-								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select Subject</option>
-										<option value="" >Bangla</option>
-										<option value="" > English</option>
-										<option value="" > Math</option>
-										<option value="" > Physics</option>
-										<option value="" > Chemestry</option>
-										<option value="" > Algorithm</option>
-										<option value="" > C Programming</option>
-									</select>
-								</div>
-								<div class="col-xs-3 padd">
-									<select class="form-control" name="" id="" >
-										<option value="" selected> Select topic</option>
-										<option value="" >Introduction</option>
-										<option value="" > Array</option>
-										<option value="" > Loop</option>
-										<option value="" > Function</option>
-										<option value="" > Pointer</option>
-										<option value="" > File</option>
+									<form>
+										<select class="form-control" name="" id="classID" onchange="levelfunc()">
+											<option value="" selected> Select Level</option>
+												
+										</select>
 										
+									</form>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="subjectID" onchange="classfunc()" >
+										<option value="" selected> Select Class</option>
+										
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+									<select class="form-control" name="" id="courseID" >
+										<option value="" selected> Select Course</option>
 									</select>
 								</div>
 							</div>
@@ -340,6 +376,9 @@
 			
           
 </div>
+
+
+
 
     <!--  Footer Area End  -->
 
