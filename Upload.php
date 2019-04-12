@@ -22,7 +22,7 @@
 	 $file = rand(1000,100000)."-".$_FILES['file']['name'];
 	 $file_loc = $_FILES['file']['tmp_name'];
 
-	 $folder="uploads/";
+	 $folder="img/";
 	 
 	 $new_file_name = strtolower($file);
 	 // make file name in lower case
