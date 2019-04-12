@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2019 at 11:49 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Apr 12, 2019 at 09:46 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `elibrary`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book`
+--
+
+CREATE TABLE `book` (
+  `book_id` int(10) NOT NULL,
+  `book_title` varchar(100) NOT NULL,
+  `book_author` varchar(100) NOT NULL,
+  `book_pdf_link` varchar(500) NOT NULL,
+  `course_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`book_id`, `book_title`, `book_author`, `book_pdf_link`, `course_id`) VALUES
+(1, 'The C Programming Language', 'Brian Kernighan and Dennis Ritchie\r\n', 'https://www.dipmat.univpm.it/~demeio/public/the_c_programming_language_2.pdf', 1),
+(2, 'C Programming: A Modern Approach', 'Kim N. King', 'https://www.scribd.com/document/362525466/K-N-King-C-Programming-A-Modern-Approach-2nd-Edition-pdf', 1),
+(3, '21st Century C: C Tips from the New School', 'Ben Klemens', 'http://karadev.net/uroci/filespdf/files/21st-century-c-o-reilly-ben-klemens.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -208,6 +231,27 @@ INSERT INTO `sector` (`sector_id`, `sector_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `single_course`
+--
+
+CREATE TABLE `single_course` (
+  `course_id` int(10) NOT NULL,
+  `course_title` varchar(100) NOT NULL,
+  `course_description` varchar(5000) NOT NULL,
+  `course_pdf_link` varchar(500) NOT NULL,
+  `course_book_description` varchar(5000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `single_course`
+--
+
+INSERT INTO `single_course` (`course_id`, `course_title`, `course_description`, `course_pdf_link`, `course_book_description`) VALUES
+(1, 'C Programming', 'The fastest, easiest way to learn to program C on a Mac or Windows. This course will teach you to program the C language from the ground up. You will learn everything from the very fundamentals of programming right through to the complexities of pointers, addresses and File IO.\r\nMaybe you\'ve tried to master C before but failed. Or maybe you are new to C or new to programming. If so, this is the course for you! \r\n\r\nC is one of the most important of all programming languages. It is used to program desktop applications, compilers, tools and utilities and even hardware devices. The C language is fast and efficient – but it can be hard to learn. Unless you use this course. This course begins with a gentle introduction to C but quickly moves on to explain some of its most confusing features: everything from C\'s \'scoping\' rules to the curious connection between arrays and memory addresses. By the end of the course you will have a deep understanding both of the C language itself and also of the underlying \'architecture\' of your computer.', 'https://docs.google.com/viewer?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true', 'When you write any program in C language then to run that program you need to compile that program using a C Compiler which converts your program into a language understandable by a computer. This is called machine language (ie. binary format). So before proceeding, make sure you have C Compiler available at your computer. It comes alongwith all flavors of Unix and Linux. If you are working over Unix or Linux then you can type gcc -v or cc -v and check the result. You can ask your system administrator or you can take help from anyone to identify an available C Compiler at your computer.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subject`
 --
 
@@ -268,6 +312,13 @@ INSERT INTO `type` (`type_id`, `type_name`) VALUES
 --
 
 --
+-- Indexes for table `book`
+--
+ALTER TABLE `book`
+  ADD PRIMARY KEY (`book_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
 -- Indexes for table `class`
 --
 ALTER TABLE `class`
@@ -310,6 +361,12 @@ ALTER TABLE `sector`
   ADD PRIMARY KEY (`sector_id`);
 
 --
+-- Indexes for table `single_course`
+--
+ALTER TABLE `single_course`
+  ADD PRIMARY KEY (`course_id`);
+
+--
 -- Indexes for table `subject`
 --
 ALTER TABLE `subject`
@@ -324,6 +381,12 @@ ALTER TABLE `type`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `book`
+--
+ALTER TABLE `book`
+  MODIFY `book_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `class`
@@ -368,6 +431,12 @@ ALTER TABLE `sector`
   MODIFY `sector_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `single_course`
+--
+ALTER TABLE `single_course`
+  MODIFY `course_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
@@ -378,6 +447,16 @@ ALTER TABLE `subject`
 --
 ALTER TABLE `type`
   MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `book`
+--
+ALTER TABLE `book`
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `single_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
