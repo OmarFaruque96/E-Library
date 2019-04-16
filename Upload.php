@@ -1,54 +1,88 @@
 <?php
-	//session_start();
-	include("connection.php");
-
-	  if(isset($_POST['uploadVideos'])){
-		$mediaType=1; 
-		$title=$_POST['videoTitle'];
-		$link=$_POST['linkofVideo'];  
-		$query="INSERT INTO gallery (type_id, link, video_title) 
-				VALUES ('$mediaType', '$link','$title');";
-		mysqli_query($conn,$query);
-		header("");
-	  }
-?>
-
-<?php
-	include_once 'connection.php';
+	session_start();
+	include('connection.php');
+	$sector=$class=$subject=$level=$topic="";
 	
-	if(isset($_POST['pdfUpload']))
-	{    
-	$type=2;
-	$title=$_POST['pdfTitle'];
-	 $file = rand(1000,100000)."-".$_FILES['file']['name'];
-	 $file_loc = $_FILES['file']['tmp_name'];
-
-	 $folder="img/";
-	 
-	 $new_file_name = strtolower($file);
-	 // make file name in lower case
-	 
-	 $final_file=str_replace(' ','-',$new_file_name);
-	 
-		 if(move_uploaded_file($file_loc,$folder.$final_file))
-		 {
-		  $sql="INSERT INTO gallery(,type_id,link,pdf_title) VALUES('$type','$final_file','$title')";
-		  mysqli_query($conn,$sql);
-		  ?>
-		 
-		  <?php
-		 }
-		 
-		 else
-		 {
-		  ?>
+	
+	$session_data = $_SESSION['email'];
+    if($session_data == ""){
+        header("Location:index.php");
+	}
+	else{
+		  if(isset($_POST['uploadVideos'])){
+			  
+			$a= $_POST['sector'];
+			$query="SELECT sector_id FROM sector WHERE sector_name='$a'";
+			$result=mysqli_query($conn,$query);
+			if(mysqli_num_rows($result) > 0){
+				$row=mysqli_fetch_assoc($result);
+				$sector=$row['sector_id'];
+				echo $sector;
+			}	
+			$b= $_POST['level'];
+			$query="SELECT level_id FROM level WHERE level_name='$b'";
+			$result=mysqli_query($conn,$query);
+			if(mysqli_num_rows($result) > 0){
+				$row=mysqli_fetch_assoc($result);
+				$level=$row['level_id'];
+			}	
+			$c= $_POST['class'];
+			$query="SELECT class_id FROM class WHERE class_name='$c'";
+			$result=mysqli_query($conn,$query);
+			if(mysqli_num_rows($result) > 0){
+				$row=mysqli_fetch_assoc($result);
+				$class=$row['class_id'];
+			}	
+			$d=$_POST['subject'];
+			$query = "SELECT subject_id FROM subject WHERE subject_name='$d'";
+			$result=mysqli_query($conn,$query);
+			if(mysqli_num_rows($result) > 0){
+				$row=mysqli_fetch_assoc($result);
+				$subject=$row['subject_id'];
+			}	
+			$e=$_POST['topic'];
+			$query = "SELECT topic_id FROM topic WHERE topic_name='$e'";
+			$result=mysqli_query($conn,$query);
+			if(mysqli_num_rows($result) > 0){
+				$row=mysqli_fetch_assoc($result);
+				$topic=$row['topic_id'];
+			}
+			
+			$mediaType = 1; 
+			$title = $_POST['videoTitle'];
+			
+			$link = $_POST['linkofVideo'];  
+			
+			$query = "INSERT INTO gallery (sector_id,person_mail,level_id,class_id,subject_id,topic_id,type_id,link,video_title) 
+					VALUES ('$sector','$session_data','$level','$class','$subject','$topic','$mediaType','$link','$title');";
+			mysqli_query($conn,$query);
+			header("");
+		  }
 		  
-		  <?php
-		 }
+		  // pgf/photos upload part 
+		  if(isset($_POST['pdfUpload']))
+			{    
+			$type=2;
+			$title=$_POST['pdfTitle'];
+			 $file = rand(1000,100000)."-".$_FILES['file']['name'];
+			 $file_loc = $_FILES['file']['tmp_name'];
+
+			 $folder="img/";
+			 
+			 $new_file_name = strtolower($file);
+			 // make file name in lower case
+			 
+			 $final_file=str_replace(' ','-',$new_file_name);
+			 
+				 if(move_uploaded_file($file_loc,$folder.$final_file))
+				 {
+				  $query = "INSERT INTO gallery (sector_id,person_mail,level_id,class_id,subject_id,topic_id,type_id,link,pdf_title) 
+					VALUES ('$sector','$session_data','$level','$class','$subject','$topic','$type','$final_file','$title');";
+				  mysqli_query($conn,$query);
+				 }
+			} 
 	}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -360,9 +394,9 @@
 			
 			<div id="videoUpload" class="collapse">
 					<!--<form method="POST">-->
-					
+					<form action="" method="post">
 					<div class="list-group">
-						<form action="" method="post">
+						
 							<div class="row warning" style="padding:5px 20px">
 								<div class="col-xs-3 padd" >
 								<!--ajax.php-->
@@ -379,7 +413,6 @@
 									<!--subjectAjax.php-->
 										<select class="form-control" name="level" id="classID" onchange="levelfunc()">
 											<option value="none" selected> Select Level</option>
-												
 										</select>
 									
 								</div>
@@ -387,7 +420,6 @@
 								<!--classAjax.php-->
 									<select class="form-control" name="class" id="subjectID" onchange="classfunc()" >
 										<option value="none" selected> Select Class</option>
-										
 									</select>
 								</div>
 								<div class="col-xs-3 padd">
@@ -403,16 +435,16 @@
 									</select>
 								</div>
 							</div>
-						</form>
+							
 						<hr>
 					</div>
-					<form action="" method="post">
+					
 						<div class="list-group">
 							
 							<div class="form row">
 							<div class="col-3">
-									<input class="form-control" name="videoTitle" type="text" placeholder="enter the title">
-								</div>
+								<input class="form-control" name="videoTitle" type="text" placeholder="enter the title">
+							</div>
 							<div class="col-7">
 								<input class="form-control" name="linkofVideo" type="text" placeholder="enter the video link here">
 							</div>
@@ -465,7 +497,7 @@
 								</div>
 								<div class="col-xs-3 padd">
 								
-									<select class="form-control" name="topic" id="topicID2" >
+									<select class="form-control" name="topic2" id="topicID2" >
 										<option value="none" selected> Select Topic</option>
 									</select>
 								</div>
