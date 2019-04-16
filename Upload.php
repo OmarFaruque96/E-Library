@@ -1,22 +1,16 @@
 <?php
-	session_start();
-    include('connection.php');
+	//session_start();
+	include("connection.php");
 
-    $session_data = $_SESSION['email'];
-    if($session_data == ""){
-        header("Location:index.php");
-	}
-	else{		
-		if(isset($_POST['uploadVideos'])){
-		  $mediaType=1; 
-		  $link=$_POST['linkofVideo'];  
-  
-		  $query="INSERT INTO gallery (type_id, link) 
-				  VALUES ('$mediaType', '$link');";
-		  mysqli_query($conn,$query);
-		  header("");
-		}
-	}
+	  if(isset($_POST['uploadVideos'])){
+		$mediaType=1; 
+		$title=$_POST['videoTitle'];
+		$link=$_POST['linkofVideo'];  
+		$query="INSERT INTO gallery (type_id, link, video_title) 
+				VALUES ('$mediaType', '$link','$title');";
+		mysqli_query($conn,$query);
+		header("");
+	  }
 ?>
 
 <?php
@@ -25,6 +19,7 @@
 	if(isset($_POST['pdfUpload']))
 	{    
 	$type=2;
+	$title=$_POST['pdfTitle'];
 	 $file = rand(1000,100000)."-".$_FILES['file']['name'];
 	 $file_loc = $_FILES['file']['tmp_name'];
 
@@ -37,7 +32,7 @@
 	 
 		 if(move_uploaded_file($file_loc,$folder.$final_file))
 		 {
-		  $sql="INSERT INTO gallery(,type_id,link) VALUES('$type','$final_file')";
+		  $sql="INSERT INTO gallery(,type_id,link,pdf_title) VALUES('$type','$final_file','$title')";
 		  mysqli_query($conn,$sql);
 		  ?>
 		 
@@ -94,7 +89,6 @@
                     document.getElementById('subjectID').innerHTML=this.responseText;
                 }
               }
-
               req.open("GET","classAjax.php?data="+selval,true);
               req.send();
           }
@@ -114,6 +108,19 @@
           }
         }
 		
+		function subjectfunc(){
+          var selval = document.getElementById('courseID').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('topicID').innerHTML=this.responseText;
+                }
+              }
+              req.open("GET","topicAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
 		
 		
 		
@@ -162,6 +169,20 @@
               req.send();
           }
         }
+		function subjectfunc2(){
+          var selval = document.getElementById('courseID2').value;
+          if(selval != "none"){
+              var req=new XMLHttpRequest();
+              req.onreadystatechange=function(){
+                if(this.status==200 && this.readyState == 4){
+                    document.getElementById('topicID2').innerHTML=this.responseText;
+                }
+              }
+              req.open("GET","topicAjax.php?data="+selval,true);
+              req.send();
+          }
+        }
+		
     </script>
 	
 
@@ -344,33 +365,41 @@
 						<form action="" method="post">
 							<div class="row warning" style="padding:5px 20px">
 								<div class="col-xs-3 padd" >
-								
+								<!--ajax.php-->
 										<select class="form-control" name="sector" id="sectorID" onchange="sectorfunc()" >
-											<option value="" selected> Select Medium</option>
-											<option value="1" >Bangla Medium</option>
-											<option value="2" > English Medium</option>
-											<option value="3" > Undergraduate</option>
-											<option value="4" > Others</option>
+											<option value="none" selected> Select Medium</option>
+											<option value="Bangla Medium">Bangla Medium</option>
+											<option value="English Medium"> English Medium</option>
+											<option value="Undergraduate"> Undergraduate</option>
+											<option value="Others"> Others</option>
 										</select>
 									
 								</div>
 								<div class="col-xs-3 padd">
-									
+									<!--subjectAjax.php-->
 										<select class="form-control" name="level" id="classID" onchange="levelfunc()">
-											<option value="" selected> Select Level</option>
+											<option value="none" selected> Select Level</option>
 												
 										</select>
 									
 								</div>
 								<div class="col-xs-3 padd">
+								<!--classAjax.php-->
 									<select class="form-control" name="class" id="subjectID" onchange="classfunc()" >
-										<option value="" selected> Select Class</option>
+										<option value="none" selected> Select Class</option>
 										
 									</select>
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="subject" id="courseID" >
-										<option value="" selected> Select Course</option>
+								<!--topicAjax.php-->
+									<select class="form-control" name="subject" id="courseID" onchange="subjectfunc()">
+										<option value="none" selected> Select Course</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+								
+									<select class="form-control" name="topic" id="topicID" >
+										<option value="none" selected> Select Topic</option>
 									</select>
 								</div>
 							</div>
@@ -381,7 +410,10 @@
 						<div class="list-group">
 							
 							<div class="form row">
-							<div class="col-10">
+							<div class="col-3">
+									<input class="form-control" name="videoTitle" type="text" placeholder="enter the title">
+								</div>
+							<div class="col-7">
 								<input class="form-control" name="linkofVideo" type="text" placeholder="enter the video link here">
 							</div>
 							<div class="col-2">
@@ -406,29 +438,35 @@
 								
 										<select class="form-control" name="sector2" id="sectorID2" onchange="sectorfunc2()" >
 											<option value="" selected> Select Medium</option>
-											<option value="1" >Bangla Medium</option>
-											<option value="2" > English Medium</option>
-											<option value="3" > Undergraduate</option>
-											<option value="4" > Others</option>
+											<option value="Bangla Medium" >Bangla Medium</option>
+											<option value="English Medium" > English Medium</option>
+											<option value="Undergraduate" > Undergraduate</option>
+											<option value="Others" > Others</option>
 										</select>
 									
 								</div>
 								<div class="col-xs-3 padd">
 									
 										<select class="form-control" name="level2" id="classID2" onchange="levelfunc2()">
-											<option value="" selected> Select Level</option>
+											<option value="none" selected> Select Level</option>
 												
 										</select>
 									
 								</div>
 								<div class="col-xs-3 padd">
 									<select class="form-control" name="class2" id="subjectID2" onchange="classfunc2()" >
-										<option value="" selected> Select Class</option>
+										<option value="none" selected> Select Class</option>
 									</select>
 								</div>
 								<div class="col-xs-3 padd">
-									<select class="form-control" name="subject2" id="courseID2" >
-										<option value="" selected> Select Course</option>
+									<select class="form-control" name="subject2" id="courseID2" onchange="subjectfunc2()">
+										<option value="none" selected> Select Course</option>
+									</select>
+								</div>
+								<div class="col-xs-3 padd">
+								
+									<select class="form-control" name="topic" id="topicID2" >
+										<option value="none" selected> Select Topic</option>
 									</select>
 								</div>
 							</div>
@@ -439,7 +477,11 @@
 						
 						<div class="row info">
 							
-							<div class="col-10">	
+							<div class="col-3">
+										<input type="text" class="form-control" name="pdfTitle" placeholder="enter the title">
+								</div>
+								
+							<div class="col-7">	
 								
 									<input type="file" name="file" accept="image/*,.pdf">
 								
