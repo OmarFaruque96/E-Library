@@ -81,6 +81,10 @@
 				  mysqli_query($conn,$query);
 				 }
 			} 
+		if(isset($_POST['logout_button'])){
+          session_destroy();
+          header('Location:index.php');
+        }
 	}
 ?>
 <!DOCTYPE html>
@@ -242,7 +246,7 @@
         <div class="top-header-area d-flex justify-content-between align-items-center">
             <!-- Contact Info -->
             <div class="contact-info">
-                <a href="#"><span>Phone:</span> +880 1773 357272/a>
+                <a href="#"><span>Phone:</span> +880 1773 357272</a>
                 <a href="#"><span>Email:</span> engineerbrother.cse@gmail.com</a>
             </div>
             <!-- Follow Us -->
@@ -280,27 +284,89 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html">Home</a></li>
-                                <li><a href="#">Books</a>
+                                <li><a href="#">Books and Notes</a>
                                     <ul class="dropdown">
 										<li><a href="#">English Medium</a>
 											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
+													<li><a href="">Class 1-7</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+														</ul>
+													</li>
+													<li><a href="">O-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 8</a></li>
+															<li><a href="">Class 9</a></li>
+															<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">A-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 11</a></li>
+															<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Bangla Medium</a>
 											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
+													<li><a href="">Primary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+														</ul>
+													</li>
+													<li><a href="">Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+																<li><a href="">Class 8</a></li>
+																<li><a href="">Class 9</a></li>
+																<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">Higher Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 11</a></li>
+																<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
                                         <li><a href="single-course.html">Undergraduate</a>
 											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
+													<li><a href="">Engineering</a>
+														<ul class="dropdown">
+																<li><a href="">CSE</a></li>
+																<li><a href="">EEE</a></li>
+																<li><a href="">CTE</a></li>
+																<li><a href="">IPE</a></li>
+														</ul>
+													</li>
+													<li><a href="">BBA</a>
+														<ul class="dropdown">
+																<li><a href="">Subject - 01</a></li>															
+														</ul>
+													</li>
+													<li><a href="">Economics</a>
+														<ul class="dropdown">
+																<li><a href="">Economics</a></li>
+														</ul>
+													</li>
+													<li><a href="">Business Studies</a>
+														<ul class="dropdown">
+																<li><a href="">Business</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Others</a>
@@ -312,41 +378,7 @@
 											</ul>
 										</li>
                                     </ul>
-                                </li>
-                                <li><a href="#">Notes & Slides</a>
-                                    <ul class="dropdown">
-										<li><a href="#">English Medium</a>
-											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Bangla Medium</a>
-											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
-											</ul>
-										</li>
-                                        <li><a href="single-course.html">Undergraduate</a>
-											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Others</a>
-											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
-											</ul>
-										</li>
-                                    </ul>
-                                </li>
-                                
+                                </li>   
                                 <li><a href="">Question Bank</a></li>
                                 <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
@@ -360,10 +392,23 @@
                                 </form>
                             </div>
 
-                            <!-- Register / Login -->
-                            <div class="register-login-area">
-                                <a href="#" class="btn">Register</a>
-                                <a href="index-login.html" class="btn active">Login</a>
+                            <div class="login-state d-flex align-items-center">
+							
+                                <div class="user-name mr-30">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data?></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                                            <a class="dropdown-item" href="profile.php">Profile</a>
+                                            <a class="dropdown-item" href="Upload.php">Upload</a>
+											<form action="" method="post">
+												<button class="dropdown-item" name="logout_button">Logout</button>
+											</form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="userthumb">
+                                    <img src="img/profile/omar.jpg" alt="">
+                                </div>
                             </div>
 
                         </div>
