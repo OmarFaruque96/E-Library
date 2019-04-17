@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2019 at 09:46 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Apr 17, 2019 at 08:11 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -117,6 +117,26 @@ INSERT INTO `course` (`course_id`, `subject_id`, `course_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `faq_id` int(11) NOT NULL,
+  `question` varchar(300) DEFAULT NULL,
+  `answer` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`faq_id`, `question`, `answer`) VALUES
+(1, 'abc', 'def'),
+(2, 'pqr', 'xyz');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gallery`
 --
 
@@ -163,6 +183,36 @@ INSERT INTO `level` (`level_id`, `sector_id`, `level_name`) VALUES
 (12, 4, 'GRE'),
 (13, 4, 'Story'),
 (14, 4, 'Others');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pdf`
+--
+
+CREATE TABLE `pdf` (
+  `pdf_id` int(11) NOT NULL,
+  `pdf_title` varchar(100) DEFAULT NULL,
+  `pdf_link` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pdf`
+--
+
+INSERT INTO `pdf` (`pdf_id`, `pdf_title`, `pdf_link`) VALUES
+(1, 'API', 'pdf/api'),
+(2, 'Basic Concepts', 'pdf/basic_concepts'),
+(3, 'Ethics', 'pdf/ethics'),
+(4, 'Git', 'pdf/git'),
+(5, 'JSON', 'pdf/json'),
+(6, 'Modularity', 'pdf/modularity'),
+(7, 'MSA', 'pdf/msa'),
+(8, 'Process Models', 'pdf/process_models'),
+(9, 'REST', 'pdf/rest'),
+(10, 'SOA', 'pdf/soa'),
+(11, 'System Design', 'pdf/system_design'),
+(12, 'Test', 'pdf/test');
 
 -- --------------------------------------------------------
 
@@ -290,6 +340,26 @@ INSERT INTO `subject` (`subject_id`, `class_id`, `subject_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `topic`
+--
+
+CREATE TABLE `topic` (
+  `topic_id` int(11) NOT NULL,
+  `topic_title` varchar(100) DEFAULT NULL,
+  `video_id` int(11) DEFAULT NULL,
+  `pdf_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `topic`
+--
+
+INSERT INTO `topic` (`topic_id`, `topic_title`, `video_id`, `pdf_id`) VALUES
+(1, 'C Programming', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `type`
 --
 
@@ -306,6 +376,30 @@ INSERT INTO `type` (`type_id`, `type_name`) VALUES
 (1, 'video'),
 (2, 'pdf'),
 (3, 'photos');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video`
+--
+
+CREATE TABLE `video` (
+  `video_id` int(11) NOT NULL,
+  `video_title` varchar(100) DEFAULT NULL,
+  `video_link` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `video`
+--
+
+INSERT INTO `video` (`video_id`, `video_title`, `video_link`) VALUES
+(1, 'C Tutorial for Beginners 1', 'si-KFFOW2gw'),
+(2, 'C Tutorial for Beginners 2', 'sB7YGSbAIvQ'),
+(3, 'C Tutorial for Beginners 3', 'nZnMH5x6PfQ'),
+(4, 'C Tutorial for Beginners 4', 'rFnWoTnoC50'),
+(5, 'C Tutorial for Beginners 5', 'TxWKGhF9KdM'),
+(6, 'C Tutorial for Beginners 6', 'ndfz-biPdZ0');
 
 --
 -- Indexes for dumped tables
@@ -331,6 +425,12 @@ ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`);
 
 --
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`faq_id`);
+
+--
 -- Indexes for table `gallery`
 --
 ALTER TABLE `gallery`
@@ -341,6 +441,12 @@ ALTER TABLE `gallery`
 --
 ALTER TABLE `level`
   ADD PRIMARY KEY (`level_id`);
+
+--
+-- Indexes for table `pdf`
+--
+ALTER TABLE `pdf`
+  ADD PRIMARY KEY (`pdf_id`);
 
 --
 -- Indexes for table `person`
@@ -373,10 +479,24 @@ ALTER TABLE `subject`
   ADD PRIMARY KEY (`subject_id`);
 
 --
+-- Indexes for table `topic`
+--
+ALTER TABLE `topic`
+  ADD PRIMARY KEY (`topic_id`),
+  ADD KEY `video_id` (`video_id`),
+  ADD KEY `pdf_id` (`pdf_id`);
+
+--
 -- Indexes for table `type`
 --
 ALTER TABLE `type`
   ADD PRIMARY KEY (`type_id`);
+
+--
+-- Indexes for table `video`
+--
+ALTER TABLE `video`
+  ADD PRIMARY KEY (`video_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -457,6 +577,13 @@ ALTER TABLE `type`
 --
 ALTER TABLE `book`
   ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `single_course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `topic`
+--
+ALTER TABLE `topic`
+  ADD CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `video` (`video_id`),
+  ADD CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`pdf_id`) REFERENCES `pdf` (`pdf_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
