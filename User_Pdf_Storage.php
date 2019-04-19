@@ -191,10 +191,13 @@
 							<form method="post">
                                 <div class="user-name mr-30">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data?></a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="Upload.php">Upload</a>
+											<a class="dropdown-item" href="User_Video_Storage.php">Video File</a>
+											<a class="dropdown-item" href="User_Pdf_Storage.php">Pdf File</a>
+											
                                             <button class="dropdown-item"name="logout_button">Logout</button>
                                         </div>
                                     </div>
