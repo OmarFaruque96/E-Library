@@ -400,7 +400,9 @@
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="Upload.php">Upload</a>
-											<a class="dropdown-item" href="Store.php">Store</a>
+											<a class="dropdown-item" href="User_Video_Storage.php">Video File</a>
+											<a class="dropdown-item" href="User_Pdf_Storage.php">Pdf File</a>
+											
 											<form action="" method="post">
 												<button class="dropdown-item" name="logout_button">Logout</button>
 											</form>
