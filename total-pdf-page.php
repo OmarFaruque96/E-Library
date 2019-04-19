@@ -1,5 +1,8 @@
-<?php include('connection.php') ?>
+<?php
+	
+    include('connection.php');
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,15 +11,8 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title -->
-    <title>Clever - Education &amp; Courses Template | Regular Page</title>
-
-    <!-- Favicon -->
+    <title>EduSolution | Home</title>
     <link rel="icon" href="img/core-img/favicon.ico">
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,13 +29,13 @@
         <div class="top-header-area d-flex justify-content-between align-items-center">
             <!-- Contact Info -->
             <div class="contact-info">
-                <a href="#"><span>Phone:</span> +44 300 303 0266</a>
-                <a href="#"><span>Email:</span> info@clever.com</a>
+                <a href="#"><span>Phone:</span> +880 1773 357272</a>
+                <a href="#"><span>Email:</span> engineerbrother.cse@gmail.com</a>
             </div>
             <!-- Follow Us -->
             <div class="follow-us">
                 <span>Follow us</span>
-                <a href="#"><i class="fa fa-faceTopic" aria-hidden="true"></i></a>
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                 <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                 <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
@@ -71,21 +67,103 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html">Home</a></li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="#">Books and Notes</a>
                                     <ul class="dropdown">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="courses.html">Courses</a></li>
-                                        <li><a href="single-course.html">Single Courses</a></li>
-                                        <li><a href="instructors.html">Instructors</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-details.html">Single Blog</a></li>
-                                        <li><a href="regular-page.html">Regular Page</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
+										<li><a href="#">English Medium</a>
+											<ul class="dropdown">
+													<li><a href="">Class 1-7</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+														</ul>
+													</li>
+													<li><a href="">O-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 8</a></li>
+															<li><a href="">Class 9</a></li>
+															<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">A-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 11</a></li>
+															<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
+											</ul>
+										</li>
+										<li><a href="#">Bangla Medium</a>
+											<ul class="dropdown">
+													<li><a href="">Primary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+														</ul>
+													</li>
+													<li><a href="">Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+																<li><a href="">Class 8</a></li>
+																<li><a href="">Class 9</a></li>
+																<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">Higher Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 11</a></li>
+																<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
+											</ul>
+										</li>
+                                        <li><a href="single-course.html">Undergraduate</a>
+											<ul class="dropdown">
+													<li><a href="">Engineering</a>
+														<ul class="dropdown">
+																<li><a href="">CSE</a></li>
+																<li><a href="">EEE</a></li>
+																<li><a href="">CTE</a></li>
+																<li><a href="">IPE</a></li>
+														</ul>
+													</li>
+													<li><a href="">BBA</a>
+														<ul class="dropdown">
+																<li><a href="">Subject - 01</a></li>															
+														</ul>
+													</li>
+													<li><a href="">Economics</a>
+														<ul class="dropdown">
+																<li><a href="">Economics</a></li>
+														</ul>
+													</li>
+													<li><a href="">Business Studies</a>
+														<ul class="dropdown">
+																<li><a href="">Business</a></li>
+														</ul>
+													</li>
+											</ul>
+										</li>
+										<li><a href="#">Others</a>
+											<ul class="dropdown">
+													<li><a href="">IELTS</a></li>
+													<li><a href="">GRE</a></li>
+													<li><a href="">TOFEL</a></li>
+													<li><a href="">Story</a></li>
+											</ul>
+										</li>
                                     </ul>
-                                </li>
-                                <li><a href="courses.html">Courses</a></li>
-                                <li><a href="instructors.html">Instructors</a></li>
-                                <li><a href="blog.html">Blog</a></li>
+                                </li>   
+                                <li><a href="">Question Bank</a></li>
+                                <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
 
@@ -98,9 +176,22 @@
                             </div>
 
                             <!-- Register / Login -->
-                            <div class="register-login-area">
-                                <a href="#" class="btn">Register</a>
-                                <a href="index-login.html" class="btn active">Login</a>
+                            <div class="login-state d-flex align-items-center">
+							<form method="post">
+                                <div class="user-name mr-30">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                                            <a class="dropdown-item" href="profile.php">Profile</a>
+                                            <a class="dropdown-item" href="Upload.php">Upload</a>
+                                            <button class="dropdown-item"name="logout_button">Logout</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="userthumb">
+                                    <img src="img/profile/omar.jpg" alt="">
+                                </div>
+							</form>
                             </div>
 
                         </div>
@@ -135,16 +226,16 @@
                         <div class="row text-center text-lg-left">
 
                             <?php
-                                $sql = "SELECT pdf_title, pdf_link FROM pdf";
+                                $sql = "SELECT * FROM gallery WHERE type_id=2";
                                 $result = $conn->query($sql);
                                 $pdf = [];
-                                $extension = ".pdf";
+                                
                                     
                                 if($result->num_rows > 0){
                                     while($row = $result->fetch_assoc()){
                                         $pdfs[] = [
                                             'title' => $row["pdf_title"],
-                                            'content' => $row["pdf_link"] . $extension
+                                            'content' => $row["link"]
                                         ];
                                     }
                                 }
@@ -161,7 +252,7 @@
                                 <img class="img-fluid img-thumbnail" src="img/book-cover.jpg" alt="">
                                 <h4 class="text-center my-3"><?php echo $pdf['title'] ?></h4>
                                 <div style="padding: 10px 10px">
-                                    <a href="<?php echo $pdf['content'] ?>" target="_blank">
+                                    <a href="<?php echo "pdf notes/".$pdf['content'] ?>" target="_blank">
                                     <button class="btn btn-md-4 btn-info"> View Topics </button></a> 
                                     <button class="btn btn-md-4 btn-success"> Download </button>
                                 </div>
