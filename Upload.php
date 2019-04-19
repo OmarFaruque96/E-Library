@@ -67,7 +67,7 @@
 			 $file = rand(1000,100000)."-".$_FILES['file']['name'];
 			 $file_loc = $_FILES['file']['tmp_name'];
 
-			 $folder="img/";
+			 $folder="pdf notes/";
 			 
 			 $new_file_name = strtolower($file);
 			 // make file name in lower case
@@ -400,6 +400,7 @@
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="Upload.php">Upload</a>
+											<a class="dropdown-item" href="Store.php">Store</a>
 											<form action="" method="post">
 												<button class="dropdown-item" name="logout_button">Logout</button>
 											</form>
