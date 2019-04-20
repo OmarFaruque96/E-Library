@@ -1,25 +1,4 @@
-<?php
-    session_start();
-    include('connection.php');
 
-    $session_data = $_SESSION['email'];
-    if($session_data == ""){
-        header("Location:index.php");
-    }
-    else{
-        $query="SELECT * FROM person WHERE person_email='$session_data'";
-        $result=mysqli_query($conn,$query);
-        if(mysqli_num_rows($result) > 0){
-            $row=mysqli_fetch_assoc($result);           
-            $person_name=$row['person_name'];
-        }
-
-        if(isset($_POST['logout_button'])){
-            session_destroy();
-            header('Location:index.php');
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,13 +7,13 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
-    <title>EduSolution | Login</title>
-
+    <title>EduSolution | Home</title>
     <link rel="icon" href="img/core-img/favicon.ico">
-
-    <link rel="stylesheet" href="style.css">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -43,7 +22,6 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- ##### Header Area Start ##### -->
     <header class="header-area">
 
         <!-- Top Header Area -->
@@ -69,7 +47,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a> 
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -197,22 +175,10 @@
                             </div>
 
                             <!-- Register / Login -->
-                            <div class="login-state d-flex align-items-center">
-                                <div class="user-name mr-30">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data ?></a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
-                                            <a class="dropdown-item" href="profile.php">Profile</a>
-                                            <a class="dropdown-item" href="Upload.php">Upload</a>
-                                            <form action="" method="post">
-                                                <button name="logout_button" class="dropdown-item btn btn-danger">Logout</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="userthumb">
-                                    <img src="img/profile/omar.jpg" alt="">
-                                </div>
+
+                            <div class="register-login-area">
+                                <a href="signup.php" class="btn">Register</a>
+                                <a href="login.php" class="btn active">Login</a>
                             </div>
 
                         </div>
@@ -225,76 +191,7 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Hero Area Start ##### -->
-    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(img/bg-img/bg1.jpg);">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <!-- Hero Content -->
-                    <div class="hero-content text-center">
-                        <h2>Let's Study Together</h2>
-                        <a href="#" class="btn clever-btn">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Hero Area End ##### -->
-
-    <!-- ##### Cool Facts Area Start ##### -->
-    <section class="cool-facts-area section-padding-100-0">
-        <div class="container">
-            <div class="row">
-                <!-- Single Cool Facts Area -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100">
-                        <div class="icon">
-                            <img src="img/core-img/docs.png" alt="">
-                        </div>
-                        <h2><span class="counter">1912</span></h2>
-                        <h5>Success Stories</h5>
-                    </div>
-                </div>
-
-                <!-- Single Cool Facts Area -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100">
-                        <div class="icon">
-                            <img src="img/core-img/star.png" alt="">
-                        </div>
-                        <h2><span class="counter">123</span></h2>
-                        <h5>Dedicated Tutors</h5>
-                    </div>
-                </div>
-
-                <!-- Single Cool Facts Area -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100">
-                        <div class="icon">
-                            <img src="img/core-img/events.png" alt="">
-                        </div>
-                        <h2><span class="counter">89</span></h2>
-                        <h5>Scheduled Events</h5>
-                    </div>
-                </div>
-
-                <!-- Single Cool Facts Area -->
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="single-cool-facts-area text-center mb-100">
-                        <div class="icon">
-                            <img src="img/core-img/earth.png" alt="">
-                        </div>
-                        <h2><span class="counter">56</span></h2>
-                        <h5>Available Courses</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Cool Facts Area End ##### -->
-
-   
-    <!-- ##### Best Tutors End ##### -->
-<section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(img/bg-img/1.jpg);">
+    <section class="hero-area bg-img bg-overlay-2by5" style="background-image: url(img/bg-img/1.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -697,6 +594,8 @@
             </div>
         </div>
     </section>
+    <!-- ##### Upcoming Events End ##### -->
+	
     <!-- ##### Blog Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
