@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2019 at 09:09 PM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: Apr 23, 2019 at 12:49 PM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 5.6.36
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,8 +31,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `books` (
   `books_id` int(11) NOT NULL,
   `books_title` varchar(250) NOT NULL,
+  `books_cover_image` varchar(1000) NOT NULL,
+  `books_description` varchar(5000) NOT NULL,
   `books_author` varchar(250) NOT NULL,
   `books_pdf_link` varchar(250) NOT NULL,
+  `books_view_pdf_link` varchar(500) NOT NULL,
   `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,10 +43,10 @@ CREATE TABLE `books` (
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`books_id`, `books_title`, `books_author`, `books_pdf_link`, `course_id`) VALUES
-(2, 'The C Programming Language', 'Brian Kernighan and Dennis Ritchie', 'https://www.dipmat.univpm.it/~demeio/public/the_c_programming_language_2.pdf', 1),
-(3, 'C Programming: A Modern Approach', 'Kim N. King', 'https://www.scribd.com/document/362525466/K-N-King-C-Programming-A-Modern-Approach-2nd-Edition-pdf', 1),
-(4, '21st Century C: C Tips from the New School', 'Ben Klemens', 'http://karadev.net/uroci/filespdf/files/21st-century-c-o-reilly-ben-klemens.pdf', 1);
+INSERT INTO `books` (`books_id`, `books_title`, `books_cover_image`, `books_description`, `books_author`, `books_pdf_link`, `books_view_pdf_link`, `course_id`) VALUES
+(2, 'The C Programming Language', '', 'C is a high-level and general-purpose programming language that is ideal for developing firmware or portable applications. Originally intended for writing system software, C was developed at Bell Labs by Dennis Ritchie for the Unix Operating System in the early 1970s.', 'Brian Kernighan and Dennis Ritchie', 'https://www.dipmat.univpm.it/~demeio/public/the_c_programming_language_2.pdf', 'pdf\\The C Programming Language.pdf', 1),
+(3, 'C Programming: A Modern Approach', '', 'Professor King\'s spiral approach made it accessible to a broad range of readers, from beginners to more advanced students. With adoptions at over 225 colleges, the first edition was one of the leading C textbooks of the last ten years. The second edition maintains all the book\'s popular features and brings it up to date with coverage of the C99 standard. The new edition also adds a significant number of exercises and longer programming projects, and includes extensive revisions and updates.', 'Kim N. King', 'https://cyber.rms.moe/books/01%20-%20Computer%20Science/C%20Programming%2C%20A%20Modern%20Approach%20-%20K.%20N.%20King.pdf', 'pdf\\21 Century C.pdf', 1),
+(4, '21st Century C: C Tips from the New School', '', 'Throw out your old ideas about C and get to know a programming language that’s substantially outgrown its origins. With this revised edition of 21st Century C, you’ll discover up-to-date techniques missing from other C tutorials, whether you’re new to the language or just getting reacquainted. C isn’t just the foundation of modern programming languages; it is a modern language, ideal for writing efficient, state-of-the-art applications. Get past idioms that made sense on mainframes and learn the tools you need to work with this evolved and aggressively simple language. No matter what programming language you currently favor, you’ll quickly see that 21st century C rocks. Set up a C programming environment with shell facilities, makefiles, text editors, debuggers, and memory checkers Use Autotools, C’s de facto cross-platform package manager Learn about the problematic C concepts too useful to discard Solve C’s string-building problems with C-standard functions Use modern syntactic features for functions that take structured inputs Build high-level, object-based libraries and programs Perform advanced math, talk to internet servers, and run databases with existing C libraries This edition also includes new material on concurrent threads, virtual tables, C99 numeric types, and other features.', 'Ben Klemens', 'http://karadev.net/uroci/filespdf/files/21st-century-c-o-reilly-ben-klemens.pdf', 'pdf\\C Programming, A Modern Approach.pdf', 1);
 
 -- --------------------------------------------------------
 
@@ -216,6 +219,32 @@ INSERT INTO `level` (`level_id`, `sector_id`, `level_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notes`
+--
+
+CREATE TABLE `notes` (
+  `notes_id` int(10) NOT NULL,
+  `notes_title` varchar(100) NOT NULL,
+  `notes_pdf_link` varchar(500) NOT NULL,
+  `topic_id` int(10) NOT NULL,
+  `uploader_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notes`
+--
+
+INSERT INTO `notes` (`notes_id`, `notes_title`, `notes_pdf_link`, `topic_id`, `uploader_id`) VALUES
+(1, 'Array', 'http://karadev.net/uroci/filespdf/files/21st-century-c-o-reilly-ben-klemens.pdf', 7, 1),
+(2, 'Array', 'https://www.kau.edu.sa/Files/0052053/Subjects/10_csphtp1_07pdf.pdf', 7, 1),
+(3, 'Pointer', 'http://ee.hawaii.edu/~tep/EE160/Book/PDF/Chapter6.pdf', 9, 1),
+(4, 'Pointer', 'http://www.cs.utexas.edu/users/fussell/cs310h/lectures/Lecture_17-310h.pdf', 9, 1),
+(5, 'Conditional Statements', 'https://www.cs.cmu.edu/~mrmiller/15-110/Handouts/conditionals.pdf', 4, 1),
+(6, 'Loop Statements', 'https://www.inf.unibz.it/~calvanese/teaching/06-07-ip/lecture-notes/uni06.pdf', 6, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `person`
 --
 
@@ -337,28 +366,24 @@ INSERT INTO `subject` (`subject_id`, `class_id`, `subject_name`) VALUES
 CREATE TABLE `topic` (
   `topic_id` int(11) NOT NULL,
   `topic_name` varchar(255) NOT NULL,
-  `subject_id` int(11) NOT NULL
+  `course_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `topic`
 --
 
-INSERT INTO `topic` (`topic_id`, `topic_name`, `subject_id`) VALUES
-(1, 'Introduction with C', 7),
-(2, 'Variable', 7),
-(3, 'Data Type', 7),
-(4, 'if else', 7),
-(5, 'switch', 7),
-(6, 'loop', 7),
-(7, 'array', 7),
-(8, 'function', 7),
-(9, 'pointer', 7),
-(10, 'file', 7),
-(11, 'Integration', 3),
-(12, 'Differentiation', 3),
-(13, 'Circuit', 11),
-(14, 'Circuit 2', 11);
+INSERT INTO `topic` (`topic_id`, `topic_name`, `course_id`) VALUES
+(1, 'Introduction with C', 1),
+(2, 'Variable', 1),
+(3, 'Data Type', 1),
+(4, 'if else', 1),
+(5, 'switch', 1),
+(6, 'loop', 1),
+(7, 'array', 1),
+(8, 'function', 1),
+(9, 'pointer', 1),
+(10, 'file', 1);
 
 -- --------------------------------------------------------
 
@@ -390,12 +415,21 @@ CREATE TABLE `video` (
   `video_id` int(11) NOT NULL,
   `video_title` varchar(255) NOT NULL,
   `video_link` varchar(255) NOT NULL,
-  `sector_id` int(11) NOT NULL,
-  `level_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `topic_id` int(11) NOT NULL,
+  `uploader_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `video`
+--
+
+INSERT INTO `video` (`video_id`, `video_title`, `video_link`, `topic_id`, `uploader_id`) VALUES
+(1, 'C Programming - Intro into Array', 'https://www.youtube.com/embed/watch?v=BjVeWRNiddE', 7, 1),
+(2, 'C Programming - Simple Array Problem', 'https://www.youtube.com/embed/watch?v=BqU3_ouKHwk', 7, 1),
+(3, 'C Programming Tutorial - For Loop', 'https://www.youtube.com/embed/watch?v=FPjLbPu5BsQ', 6, 2),
+(4, 'C Programming Tutorial - While Loops', 'https://www.youtube.com/embed/watch?v=7pAXm7WEA2I', 6, 2),
+(5, 'C Programming Tutorial - Files', 'https://www.youtube.com/embed/watch?v=38I_AUMpKpQ', 10, 4),
+(6, 'C Programming Tutorial - If, Else If, Else Statements', 'https://www.youtube.com/embed/watch?v=SOnpOBvyhDM', 4, 4);
 
 --
 -- Indexes for dumped tables
@@ -430,6 +464,12 @@ ALTER TABLE `gallery`
 --
 ALTER TABLE `level`
   ADD PRIMARY KEY (`level_id`);
+
+--
+-- Indexes for table `notes`
+--
+ALTER TABLE `notes`
+  ADD PRIMARY KEY (`notes_id`);
 
 --
 -- Indexes for table `person`
@@ -508,6 +548,12 @@ ALTER TABLE `level`
   MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `notes`
+--
+ALTER TABLE `notes`
+  MODIFY `notes_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `person`
 --
 ALTER TABLE `person`
@@ -535,7 +581,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -547,7 +593,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `video`
 --
 ALTER TABLE `video`
-  MODIFY `video_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `video_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
