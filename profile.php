@@ -21,6 +21,11 @@
             $person_experience=$row['person_experience'];
         }
 
+        if(isset($_POST['submit'])){
+            $search_data = $_POST['search'];
+            header("Location:search_page.php?search_data=$search_data");
+        }
+
         if(isset($_POST['logout_button'])){
             session_destroy();
             header('Location:index.php');
@@ -77,7 +82,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -96,27 +101,89 @@
                         <div class="classynav">
                             <ul>
                                 <li><a href="index.html">Home</a></li>
-                                <li><a href="#">Books</a>
+                                <li><a href="#">Books and Notes</a>
                                     <ul class="dropdown">
 										<li><a href="#">English Medium</a>
 											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
+													<li><a href="">Class 1-7</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+														</ul>
+													</li>
+													<li><a href="">O-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 8</a></li>
+															<li><a href="">Class 9</a></li>
+															<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">A-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 11</a></li>
+															<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Bangla Medium</a>
 											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
+													<li><a href="">Primary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+														</ul>
+													</li>
+													<li><a href="">Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+																<li><a href="">Class 8</a></li>
+																<li><a href="">Class 9</a></li>
+																<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">Higher Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 11</a></li>
+																<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
                                         <li><a href="single-course.html">Undergraduate</a>
 											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
+													<li><a href="">Engineering</a>
+														<ul class="dropdown">
+																<li><a href="">CSE</a></li>
+																<li><a href="">EEE</a></li>
+																<li><a href="">CTE</a></li>
+																<li><a href="">IPE</a></li>
+														</ul>
+													</li>
+													<li><a href="">BBA</a>
+														<ul class="dropdown">
+																<li><a href="">Subject - 01</a></li>															
+														</ul>
+													</li>
+													<li><a href="">Economics</a>
+														<ul class="dropdown">
+																<li><a href="">Economics</a></li>
+														</ul>
+													</li>
+													<li><a href="">Business Studies</a>
+														<ul class="dropdown">
+																<li><a href="">Business</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Others</a>
@@ -128,41 +195,7 @@
 											</ul>
 										</li>
                                     </ul>
-                                </li>
-                                <li><a href="#">Notes & Slides</a>
-                                    <ul class="dropdown">
-										<li><a href="#">English Medium</a>
-											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Bangla Medium</a>
-											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
-											</ul>
-										</li>
-                                        <li><a href="single-course.html">Undergraduate</a>
-											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Others</a>
-											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
-											</ul>
-										</li>
-                                    </ul>
-                                </li>
-                                
+                                </li>   
                                 <li><a href="">Question Bank</a></li>
                                 <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
@@ -170,9 +203,9 @@
 
                             <!-- Search Button -->
                             <div class="search-area">
-                                <form action="#" method="post">
+                                <form action="" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" name ="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
@@ -183,7 +216,7 @@
                                         <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data ?></a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
-                                            <a class="dropdown-item" href="#">Account Info</a>
+                                            <a class="dropdown-item" href="Upload.php">Upload</a>
                                             <form action="" method="post">
                                                 <button name="logout_button" class="dropdown-item btn btn-danger">Logout</button>
                                             </form>
@@ -373,7 +406,7 @@
                             <!-- <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a> -->
                         </div>                     
                         <p><a href="#">
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Engineer Brother Company</a>
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="" aria-hidden="true"></i> by <a href="" target="_blank">Engineer Brother Company</a>
 						</p>
                     </div>
                 </div>

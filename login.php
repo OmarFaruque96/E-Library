@@ -1,8 +1,16 @@
 <?php 
   session_start();
   include("connection.php");
-
-  if(isset($_POST['login_button'])){
+	
+	$email = $type = $password = " ";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	  $email = test_input($_POST["email"]);
+	  $type = test_input($_POST["type"]);
+	  $password = test_input($_POST["password"]);
+	  
+	}
+	
+	if(isset($_POST['login_button'])){
     $email      = $_POST['email'];
     $type       = $_POST['type'];
     $password   = $_POST['password'];
@@ -15,8 +23,20 @@
       $_SESSION['email'] = $email;
       header("Location: index-login.php");
       exit;
-    }
+	}
+	
+	if(isset($_POST['submit'])){
+		$search_data = $_POST['search'];
+		header("Location:login.php");
+	}
   }
+	
+	function test_input($data) {
+	  $data = trim($data);
+	  $data = stripslashes($data);
+	  $data = htmlspecialchars($data);
+	  return $data;
+	}
 
 ?>
 
@@ -67,7 +87,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a> 
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -85,28 +105,90 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="#">Books</a>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">Books and Notes</a>
                                     <ul class="dropdown">
 										<li><a href="#">English Medium</a>
 											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
+													<li><a href="">Class 1-7</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+														</ul>
+													</li>
+													<li><a href="">O-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 8</a></li>
+															<li><a href="">Class 9</a></li>
+															<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">A-Level</a>
+														<ul class="dropdown">
+															<li><a href="">Class 11</a></li>
+															<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Bangla Medium</a>
 											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
+													<li><a href="">Primary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 1</a></li>
+																<li><a href="">Class 2</a></li>
+																<li><a href="">Class 3</a></li>
+																<li><a href="">Class 4</a></li>
+																<li><a href="">Class 5</a></li>
+														</ul>
+													</li>
+													<li><a href="">Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 6</a></li>
+																<li><a href="">Class 7</a></li>
+																<li><a href="">Class 8</a></li>
+																<li><a href="">Class 9</a></li>
+																<li><a href="">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">Higher Secondary</a>
+														<ul class="dropdown">
+																<li><a href="">Class 11</a></li>
+																<li><a href="">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
                                         <li><a href="single-course.html">Undergraduate</a>
 											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
+													<li><a href="">Engineering</a>
+														<ul class="dropdown">
+																<li><a href="">CSE</a></li>
+																<li><a href="">EEE</a></li>
+																<li><a href="">CTE</a></li>
+																<li><a href="">IPE</a></li>
+														</ul>
+													</li>
+													<li><a href="">BBA</a>
+														<ul class="dropdown">
+																<li><a href="">Subject - 01</a></li>															
+														</ul>
+													</li>
+													<li><a href="">Economics</a>
+														<ul class="dropdown">
+																<li><a href="">Economics</a></li>
+														</ul>
+													</li>
+													<li><a href="">Business Studies</a>
+														<ul class="dropdown">
+																<li><a href="">Business</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Others</a>
@@ -118,41 +200,7 @@
 											</ul>
 										</li>
                                     </ul>
-                                </li>
-                                <li><a href="#">Notes & Slides</a>
-                                    <ul class="dropdown">
-										<li><a href="#">English Medium</a>
-											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Bangla Medium</a>
-											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
-											</ul>
-										</li>
-                                        <li><a href="single-course.html">Undergraduate</a>
-											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Others</a>
-											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
-											</ul>
-										</li>
-                                    </ul>
-                                </li>
-                                
+                                </li>   
                                 <li><a href="">Question Bank</a></li>
                                 <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
@@ -160,15 +208,16 @@
 
                             <!-- Search Button -->
                             <div class="search-area">
-                                <form action="#" method="post">
+                                <form action="" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" name ="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
                             <!-- Register / Login -->
                             <div class="register-login-area">
-                                <a href="signup.php" ><button class="btn" > </button>Register</a>
+                                <a href="signup.php" class="btn">Register</a>
+                                <a href="login.php" class="btn active">Login</a>
                             </div>
 
                         </div>
@@ -198,7 +247,7 @@
 					<p class="divider-text">
 						<span class="bg-light">OR</span>
 					</p>
-					<form action="" method="post"> 
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 					<!-- form-group// -->
 					<div class="form-group input-group">
 						<div class="input-group-prepend">

@@ -81,6 +81,11 @@
 				  mysqli_query($conn,$query);
 				 }
 			} 
+        if(isset($_POST['submit'])){
+            $search_data = $_POST['search'];
+            header("Location:search_page.php?search_data=$search_data");
+         }
+
 		if(isset($_POST['logout_button'])){
           session_destroy();
           header('Location:index.php');
@@ -265,7 +270,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a> 
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a> 
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -388,7 +393,7 @@
                             <div class="search-area">
                                 <form action="#" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" name ="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
@@ -400,9 +405,6 @@
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
                                             <a class="dropdown-item" href="profile.php">Profile</a>
                                             <a class="dropdown-item" href="Upload.php">Upload</a>
-											<a class="dropdown-item" href="User_Video_Storage.php">Video File</a>
-											<a class="dropdown-item" href="User_Pdf_Storage.php">Pdf File</a>
-											
 											<form action="" method="post">
 												<button class="dropdown-item" name="logout_button">Logout</button>
 											</form>

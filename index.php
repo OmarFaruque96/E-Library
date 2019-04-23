@@ -1,4 +1,11 @@
+<?php
 
+if(isset($_POST['submit'])){
+    $search_data = $_POST['search'];
+    header("Location:login.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>EduSolution | Home</title>
     <link rel="icon" href="img/core-img/favicon.ico">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
@@ -47,7 +54,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a> 
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a> 
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -65,74 +72,102 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="#">Books</a>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">Books and Notes</a>
                                     <ul class="dropdown">
 										<li><a href="#">English Medium</a>
 											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
+													<li><a href="">Class 1-7</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=english_Class-1">Class 1</a></li>
+																<li><a href="SubjectList.php?data=english_Class-2">Class 2</a></li>
+																<li><a href="SubjectList.php?data=english_Class-3">Class 3</a></li>
+																<li><a href="SubjectList.php?data=english_Class-4">Class 4</a></li>
+																<li><a href="SubjectList.php?data=english_Class-5">Class 5</a></li>
+																<li><a href="SubjectList.php?data=english_Class-6">Class 6</a></li>
+																<li><a href="SubjectList.php?data=english_Class-7">Class 7</a></li>
+														</ul>
+													</li>
+													<li><a href="">O-Level</a>
+														<ul class="dropdown">
+															<li><a href="SubjectList.php?data=english_Class-8">Class 8</a></li>
+															<li><a href="SubjectList.php?data=english_Class-9">Class 9</a></li>
+															<li><a href="SubjectList.php?data=english_Class-10">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">A-Level</a>
+														<ul class="dropdown">
+															<li><a href="SubjectList.php?data=english_Class-11">Class 11</a></li>
+															<li><a href="SubjectList.php?data=english_Class-12">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Bangla Medium</a>
 											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
+													<li><a href="">Primary</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=bangla_Class-1">Class 1</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-2">Class 2</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-3">Class 3</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-4">Class 4</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-5">Class 5</a></li>
+														</ul>
+													</li>
+													<li><a href="">Secondary</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=bangla_Class-6">Class 6</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-7">Class 7</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-8">Class 8</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-9">Class 9</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-10">Class 10</a></li>
+														</ul>
+													</li>
+													<li><a href="">Higher Secondary</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=bangla_Class-11">Class 11</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-12">Class 12</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
                                         <li><a href="single-course.html">Undergraduate</a>
 											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
+													<li><a href="">Engineering</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=undergrad_CSE">CSE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_EEE">EEE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_CTE">CTE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_IPE">IPE</a></li>
+														</ul>
+													</li>
+													<li><a href="">BBA</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=undergrad_SUBJECT-01">Subject - 01</a></li>															
+														</ul>
+													</li>
+													<li><a href="">Economics</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=undergrad_ECONOMICS">Economics</a></li>
+														</ul>
+													</li>
+													<li><a href="">Business Studies</a>
+														<ul class="dropdown">
+																<li><a href="SubjectList.php?data=undergrad_BUSINESS">Business</a></li>
+														</ul>
+													</li>
 											</ul>
 										</li>
 										<li><a href="#">Others</a>
 											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
+													<li><a href="SubjectList.php?data=grad_IELTS">IELTS</a></li>
+													<li><a href="SubjectList.php?data=grad_GRE">GRE</a></li>
+													<li><a href="SubjectList.php?data=grad_TOFEL">TOFEL</a></li>
+													<li><a href="SubjectList.php?data=grad_STORY">Story</a></li>
 											</ul>
 										</li>
                                     </ul>
-                                </li>
-                                <li><a href="#">Notes & Slides</a>
-                                    <ul class="dropdown">
-										<li><a href="#">English Medium</a>
-											<ul class="dropdown">
-													<li><a href="">O-Level</a></li>
-													<li><a href="">A-Level</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Bangla Medium</a>
-											<ul class="dropdown">
-													<li><a href="">Primary</a></li>
-													<li><a href="">Secondary</a></li>
-													<li><a href="">Higher Secondary</a></li>
-											</ul>
-										</li>
-                                        <li><a href="single-course.html">Undergraduate</a>
-											<ul class="dropdown">
-													<li><a href="">CSE</a></li>
-													<li><a href="">EEE</a></li>
-													<li><a href="">ECE</a></li>
-													<li><a href="">BBA</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Others</a>
-											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
-											</ul>
-										</li>
-                                    </ul>
-                                </li>
-                                
+                                </li>   
                                 <li><a href="">Question Bank</a></li>
                                 <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
@@ -140,9 +175,9 @@
 
                             <!-- Search Button -->
                             <div class="search-area">
-                                <form action="#" method="post">
+                                <form action="" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" name ="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 

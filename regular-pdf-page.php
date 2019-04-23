@@ -15,9 +15,9 @@
 
 <body>
    
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="spinner"></div>
-    </div>
+    </div> -->
 
     <header class="header-area">
 
@@ -201,7 +201,7 @@
                             <div class="search-area">
                                 <form action="#" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button type="submit" name ="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 

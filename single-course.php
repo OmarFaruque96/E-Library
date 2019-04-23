@@ -2,21 +2,21 @@
     // session_start();
     include('connection.php');
 
-    // $session_data = $_SESSION['email'];
-
-    // Using Hard Core session for to work without sequence 
-    $session_data = 'piya@gmail.com';
-    
+    $data = $_GET['subject'];
+    $session_data = $_GET['session_data'];
 
     if($session_data == ""){
         header("Location:index.php");
     }
     else{
         // Getting the course inforamtion from single_course table and hardcore course_id, this course_id = 1 value will change when full sequence will be impletmented
-        $course_query="SELECT * FROM single_course WHERE course_id=1";
+        $course_query="SELECT course.* FROM course NATURAL JOIN subject
+        WHERE course.course_title='$data' and subject.subject_name ='$data'";
         $course_result=mysqli_query($conn,$course_query);
+        $course_id = 0;
         if(mysqli_num_rows($course_result) > 0){
             $row = mysqli_fetch_assoc($course_result);
+            $course_id = $row['course_id'];
             $course_title = $row['course_title'];
             $course_description = $row['course_description'];
             $course_pdf_link = $row['course_pdf_link'];
@@ -26,14 +26,21 @@
         // Getting the book information from joining two table single_course and book.
         // Using inner join, if hardcore course_id = 1 and if that single_course.course_id is the same in book_course_id then get those books
         // Meaning getting the books of the same course 
-        $book_query = "SELECT book.* FROM single_course INNER JOIN book where single_course.course_id = book.course_id and single_course.course_id = 1";
+        $book_query = "SELECT books.* FROM books NATURAL JOIN course where course.course_title = '$data'";
         $book_result=mysqli_query($conn,$book_query);
-        
 
-        // if(isset($_POST['logout_button'])){
-        //     session_destroy();
-        //     header('Location:index.php');
-        // }
+        $topic_query = "SELECT topic.* FROM course INNER JOIN topic where course.course_id = topic.course_id and course.course_id = $course_id";
+        $topic_result=mysqli_query($conn,$topic_query);
+        
+        if(isset($_POST['submit'])){
+            $search_data = $_POST['search'];
+            header("Location:search_page.php?search_data=$search_data");
+        }
+
+        if(isset($_POST['logout_button'])){
+            session_destroy();
+            header('Location:index.php');
+        }
     }
 ?>
 
@@ -49,10 +56,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
     <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
@@ -67,10 +71,10 @@
 </head>
 
 <body>
-    Preloader
+    <!-- Preloader
     <div id="preloader">
         <div class="spinner"></div>
-    </div>
+    </div> -->
 
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -98,7 +102,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -116,7 +120,7 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="index-login.php">Home</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li><a href="index.html">Home</a></li>
@@ -137,16 +141,29 @@
 
                             <!-- Search Button -->
                             <div class="search-area">
-                                <form action="#" method="post">
+                                <form action="" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button name="submit" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
                             <!-- Register / Login -->
-                            <div class="register-login-area">
-                                <a href="#" class="btn">Register</a>
-                                <a href="index-login.html" class="btn active">Login</a>
+                            <div class="login-state d-flex align-items-center">
+								<form method="post">
+									<div class="user-name mr-30">
+										<div class="dropdown">
+											<a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $session_data ?></a>
+											<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+												<a class="dropdown-item" href="profile.php">Profile</a>
+												<a class="dropdown-item" href="Upload.php">Upload</a>
+												<button class="dropdown-item" name="logout_button">Logout</button>
+											</div>
+										</div>
+									</div>
+									<div class="userthumb">
+										<img src="img/profile/omar.jpg" alt="">
+									</div>
+								</form>
                             </div>
 
                         </div>
@@ -177,20 +194,7 @@
         <!-- Content -->
         <div class="single-course-intro-content text-center">
             <!-- Ratings -->
-            <div class="ratings">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <h3>Programming Language</h3>
-            <div class="meta d-flex align-items-center justify-content-center">
-                <a href="#">Omar Faruque</a>
-                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                <a href="#"><?php echo $course_title ?></a>
-            </div>
-            <div class="price">Free</div>
+            <h3><?php echo $course_title ?></h3>
         </div>
     </div>
 	
@@ -369,9 +373,9 @@
                                         <div class="mb-30">
                                             <div class="row">
 												<div class="list-group">
-													<a href="total-video-page.html" class="list-group-item list-group-item-success">Video Tutorials</a>
-													
-												 </div>
+                                                    <a href="total_video_page.php?course_id=<?php echo $course_id ?>" class="list-group-item list-group-item-success">Video Tutorials</a><br>
+                                                    <a href="total_pdf_page.php?course_id=<?php echo $course_id ?>" class="list-group-item list-group-item-warning">PDF Tutorials</a>
+                                                 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -389,44 +393,83 @@
                                         </div>
 										
 										<!-- Curriculum Level -->
-                                        <div class="curriculum-level mb-30">
-                                            <h4 class="d-flex justify-content-between"><span>Topic Title</span> <span>4/5</span></h4>
-                                            <h5>Topic description</h5>
-                                            <p>this are is for writen the begineer level description. and below files contain notes and slides and video tutorial.</p>
+                                        <?php
+                                        if(mysqli_num_rows($topic_result) > 0){
+                                            while($row=mysqli_fetch_assoc($topic_result)){
 
+                                                $topic_id = $row['topic_id'];
+                                                $topic_name = $row['topic_name'];
+                                                
+                                                $query_notes = "SELECT count(notes.notes_id) as total_pdf, notes.uploader_id FROM topic NATURAL JOIN notes WHERE topic.topic_id = notes.topic_id and topic.topic_id = $topic_id";
+                                                $result_notes = mysqli_query($conn,$query_notes);
+
+                                                $query_video = "SELECT count(video.video_id) as total_video, video.uploader_id FROM topic NATURAL JOIN video WHERE topic.topic_id = video.topic_id and topic.topic_id = $topic_id";
+                                                $result_video = mysqli_query($conn,$query_video);
+
+
+                                                if(mysqli_num_rows($result_notes) > 0){
+                                                    $notes_row = mysqli_fetch_assoc($result_notes);
+                                                    if($notes_row['total_pdf'] == 0){
+                                                        $topic_pdf = "No PDF";
+                                                    }
+                                                    else{
+                                                        $topic_pdf = $notes_row['total_pdf'];
+                                                    }
+                                                    $topic_pdf_uploader = $notes_row['uploader_id'];  
+                                                    
+                                                    $query_person_pdf = "SELECT person.person_name FROM person WHERE person.person_id = '$topic_pdf_uploader'";
+                                                    $result_person_pdf = mysqli_query($conn,$query_person_pdf);
+                                                    if(mysqli_num_rows($result_person_pdf) > 0){
+                                                        $row_person_pdf = mysqli_fetch_assoc($result_person_pdf);
+                                                        $person_name_pdf = $row_person_pdf['person_name'];
+                                                    }
+                                                    else{
+                                                        $person_name_pdf = "Admin";
+                                                    }
+                                                }
+
+                                                if(mysqli_num_rows($result_video) > 0){
+                                                    $video_row = mysqli_fetch_assoc($result_video);
+                                                    if($video_row['total_video'] == 0){
+                                                        $topic_video = "No Video";
+                                                    }
+                                                    else{
+                                                        $topic_video = $video_row['total_video'];
+                                                    }
+                                                    $topic_video_uploader = $video_row['uploader_id'];  
+                                                    
+                                                    $query_person_video = "SELECT person.person_name FROM person WHERE person.person_id = '$topic_video_uploader'";
+                                                    $result_person_video = mysqli_query($conn,$query_person_video);
+                                                    if(mysqli_num_rows($result_person_video) > 0){
+                                                        $row_person_video = mysqli_fetch_assoc($result_person_video);
+                                                        $person_name_video = $row_person_video['person_name'];
+                                                    }
+                                                    else{
+                                                        $person_name_video = "Admin";
+                                                    }
+                                                }
+                                                
+                                        ?>
+                                        <div class="curriculum-level mb-30">
+                                            <h4 class="d-flex justify-content-between"><span><?php echo $topic_name ?></h4>
+                                            
                                             <ul class="curriculum-list">
-                                                <li><i class="fa fa-file" aria-hidden="true"></i> 1 video, 1 audio, 1 reading
+                                                <li><i class="fa fa-file" aria-hidden="true"></i> Video: <?php echo $topic_video ?>, PDF: <?php echo $topic_pdf ?> 
                                                     <ul>
-                                                        <li>
-                                                            <span>
-															<a href="regular-video-page.html">
-																<i class="fa fa-video-camera" aria-hidden="true" > </i> Video: Greetings and Introductions	
-															</a>	
-															</span>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i><a href="" > uploader name</a></span>
-                                                        </li>
-													
-                                                        <li>
-														<a href="regular-pdf-page.html">
-                                                            <span><i class="fa fa-file-text" aria-hidden="true"></i> Reading: <span>Word Types</span></span>
-														</a>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i><a href="" > uploader name</a></span>
-                                                        </li>
-                                                        <li>
-														<a href="regular-audio-page.html">
-                                                            <span><i class="fa fa-volume-down" aria-hidden="true"></i> Audio: <span>Listening Exercise</span></span>
-														</a>
-                                                            <span><i class="fa fa-clock-o" aria-hidden="true"></i> <a href="" >uploader name </a></span>
-                                                        </li>
+                                                        <a href="topic_video_page.php?topic_id=<?php echo $topic_id ?>&course_id=<?php echo $course_id ?>">
+                                                        <span><i class="fa fa-circle" aria-hidden="true" > </i> Video: <span><?php echo $topic_video ?></i></span></a><br>	
+																
+                                                        <a href="topic_pdf_page.php?topic_id=<?php echo $topic_id ?>&course_id=<?php echo $course_id ?>">
+                                                        <span><i class="fa fa-circle" aria-hidden="true"></i> PDF: <span><?php echo $topic_pdf ?></span></a>
                                                     </ul>
 												
                                                 </li>
-                                                <li class="d-flex justify-content-between">
-                                                    <span><i class="fa fa-graduation-cap" aria-hidden="true"></i> Graded: Cumulative Language Quiz</span>
-                                                    <span>3 Questions</span>
-                                                </li>
                                             </ul>
                                         </div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
 										
                                     </div>
                                 </div>
@@ -449,22 +492,24 @@
                                                         <?php
                                                         if(mysqli_num_rows($book_result) > 0){
                                                             while($row=mysqli_fetch_assoc($book_result)){
-                                                                $book_title = $row['book_title'];
-                                                                $book_author = $row['book_author'];
-                                                                $book_pdf_link = $row['book_pdf_link'];
+                                                                $book_id = $row['books_id'];
+                                                                $book_title = $row['books_title'];
+                                                                $book_author = $row['books_author'];
+                                                                $book_pdf_link = $row['books_pdf_link'];
                                                         ?>
-                                                                <div class="col-sm-12" style="word-wrap: break-word">
-                                                                    <a href="<?php echo $book_pdf_link ?>" data-size="1600x1067">
+                                                                <div class="col-sm-4" style="word-wrap: break-word">
+                                                                    <a href="single_book_view.php?book_id=<?php echo $book_id ?>" data-size="1600x1067">
                                                                     <img alt="picture" src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" class="img-fluid">
                                                                     </a>
                                                                     <h6>Book Title: <?php echo $book_title ?></h6>
                                                                     <p>Book Author: <?php echo $book_author ?></p>
-                                                                </div>												
-                                                            </div>
+                                                                    <p>Book PDF : <a href="<?php echo $book_pdf_link ?>">Click Here</a></p>
+                                                                </div>
                                                         <?php
                                                             }
                                                         }
-                                                        ?>												
+                                                        ?>													
+                                                    </div>    											
 													</div>
 												</div>
 											</div>                             

@@ -14,6 +14,11 @@
             $person_name=$row['person_name'];
         }
 
+        if(isset($_POST['submit'])){
+            $search_data = $_POST['search'];
+            header("Location:search_page.php?search_data=$search_data");
+        }
+
         if(isset($_POST['logout_button'])){
             session_destroy();
             header('Location:index.php');
@@ -69,7 +74,7 @@
                 <nav class="classy-navbar justify-content-between" id="cleverNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EdoSolution</a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -190,9 +195,9 @@
 
                             <!-- Search Button -->
                             <div class="search-area">
-                                <form action="#" method="post">
+                                <form action="" method="post">
                                     <input type="search" name="search" id="search" placeholder="Search">
-                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button name="submit" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
