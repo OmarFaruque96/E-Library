@@ -285,6 +285,28 @@
                             <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                         </div>
 
+                        <!-- Navbar Area -->
+        <div class="clever-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <!-- Menu -->
+                <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="">EduSolution</a> 
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- Close Button -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
@@ -295,26 +317,26 @@
 											<ul class="dropdown">
 													<li><a href="">Class 1-7</a>
 														<ul class="dropdown">
-																<li><a href="">Class 1</a></li>
-																<li><a href="">Class 2</a></li>
-																<li><a href="">Class 3</a></li>
-																<li><a href="">Class 4</a></li>
-																<li><a href="">Class 5</a></li>
-																<li><a href="">Class 6</a></li>
-																<li><a href="">Class 7</a></li>
+																<li><a href="SubjectList.php?data=english_Class-1">Class 1</a></li>
+																<li><a href="SubjectList.php?data=english_Class-2">Class 2</a></li>
+																<li><a href="SubjectList.php?data=english_Class-3">Class 3</a></li>
+																<li><a href="SubjectList.php?data=english_Class-4">Class 4</a></li>
+																<li><a href="SubjectList.php?data=english_Class-5">Class 5</a></li>
+																<li><a href="SubjectList.php?data=english_Class-6">Class 6</a></li>
+																<li><a href="SubjectList.php?data=english_Class-7">Class 7</a></li>
 														</ul>
 													</li>
 													<li><a href="">O-Level</a>
 														<ul class="dropdown">
-															<li><a href="">Class 8</a></li>
-															<li><a href="">Class 9</a></li>
-															<li><a href="">Class 10</a></li>
+															<li><a href="SubjectList.php?data=english_Class-8">Class 8</a></li>
+															<li><a href="SubjectList.php?data=english_Class-9">Class 9</a></li>
+															<li><a href="SubjectList.php?data=english_Class-10">Class 10</a></li>
 														</ul>
 													</li>
 													<li><a href="">A-Level</a>
 														<ul class="dropdown">
-															<li><a href="">Class 11</a></li>
-															<li><a href="">Class 12</a></li>
+															<li><a href="SubjectList.php?data=english_Class-11">Class 11</a></li>
+															<li><a href="SubjectList.php?data=english_Class-12">Class 12</a></li>
 														</ul>
 													</li>
 											</ul>
@@ -323,26 +345,26 @@
 											<ul class="dropdown">
 													<li><a href="">Primary</a>
 														<ul class="dropdown">
-																<li><a href="">Class 1</a></li>
-																<li><a href="">Class 2</a></li>
-																<li><a href="">Class 3</a></li>
-																<li><a href="">Class 4</a></li>
-																<li><a href="">Class 5</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-1">Class 1</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-2">Class 2</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-3">Class 3</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-4">Class 4</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-5">Class 5</a></li>
 														</ul>
 													</li>
 													<li><a href="">Secondary</a>
 														<ul class="dropdown">
-																<li><a href="">Class 6</a></li>
-																<li><a href="">Class 7</a></li>
-																<li><a href="">Class 8</a></li>
-																<li><a href="">Class 9</a></li>
-																<li><a href="">Class 10</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-6">Class 6</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-7">Class 7</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-8">Class 8</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-9">Class 9</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-10">Class 10</a></li>
 														</ul>
 													</li>
 													<li><a href="">Higher Secondary</a>
 														<ul class="dropdown">
-																<li><a href="">Class 11</a></li>
-																<li><a href="">Class 12</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-11">Class 11</a></li>
+																<li><a href="SubjectList.php?data=bangla_Class-12">Class 12</a></li>
 														</ul>
 													</li>
 											</ul>
@@ -351,35 +373,35 @@
 											<ul class="dropdown">
 													<li><a href="">Engineering</a>
 														<ul class="dropdown">
-																<li><a href="">CSE</a></li>
-																<li><a href="">EEE</a></li>
-																<li><a href="">CTE</a></li>
-																<li><a href="">IPE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_CSE">CSE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_EEE">EEE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_CTE">CTE</a></li>
+																<li><a href="SubjectList.php?data=undergrad_IPE">IPE</a></li>
 														</ul>
 													</li>
 													<li><a href="">BBA</a>
 														<ul class="dropdown">
-																<li><a href="">Subject - 01</a></li>															
+																<li><a href="SubjectList.php?data=undergrad_SUBJECT-01">Subject - 01</a></li>															
 														</ul>
 													</li>
 													<li><a href="">Economics</a>
 														<ul class="dropdown">
-																<li><a href="">Economics</a></li>
+																<li><a href="SubjectList.php?data=undergrad_ECONOMICS">Economics</a></li>
 														</ul>
 													</li>
 													<li><a href="">Business Studies</a>
 														<ul class="dropdown">
-																<li><a href="">Business</a></li>
+																<li><a href="SubjectList.php?data=undergrad_BUSINESS">Business</a></li>
 														</ul>
 													</li>
 											</ul>
 										</li>
 										<li><a href="#">Others</a>
 											<ul class="dropdown">
-													<li><a href="">IELTS</a></li>
-													<li><a href="">GRE</a></li>
-													<li><a href="">TOFEL</a></li>
-													<li><a href="">Story</a></li>
+													<li><a href="SubjectList.php?data=grad_IELTS">IELTS</a></li>
+													<li><a href="SubjectList.php?data=grad_GRE">GRE</a></li>
+													<li><a href="SubjectList.php?data=grad_TOFEL">TOFEL</a></li>
+													<li><a href="SubjectList.php?data=grad_STORY">Story</a></li>
 											</ul>
 										</li>
                                     </ul>
@@ -388,7 +410,8 @@
                                 <li><a href="">Blog</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
-
+                            
+                            
                             <!-- Search Button -->
                             <div class="search-area">
                                 <form action="#" method="post">
