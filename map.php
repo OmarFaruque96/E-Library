@@ -48,25 +48,26 @@ if (mysqli_num_rows($result) > 0) {
             axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: location,
-                    key: 'AIzaSyC4R_TR6n5C2k6qYsA_fIH-rvZX5kPTM9Q'
+                    key: 'AIzaSyBJG1gcDkonYdrBI4nREtk4mUJ_l245fys'
                 }
             })
                 .then(function (response) {
-                    // Formatted Address
-                    var formattedAddress = response.data.results[0].formatted_address;
-                    console.log(formattedAddress);
+                    if (response.data.results) {
+                        // Formatted Address
+                        var formattedAddress = response.data.results[0].formatted_address;
+                        console.log(formattedAddress);
 
-                    // Geometry
-                    var latitude = response.data.results[0].geometry.location.lat;
-                    var longitude = response.data.results[0].geometry.location.lng;
+                        // Geometry
+                        var latitude = response.data.results[0].geometry.location.lat;
+                        var longitude = response.data.results[0].geometry.location.lng;
+                        console.log(latitude);
+                        console.log(longitude);
 
-                    console.log(latitude);
-                    console.log(longitude);
-
-                    var marker = new google.maps.Marker({
-                        position: { lat: latitude, lng: longitude },
-                        map: map
-                    });
+                        var marker = new google.maps.Marker({
+                            position: { lat: latitude, lng: longitude },
+                            map: map
+                        });
+                    }  
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -76,20 +77,20 @@ if (mysqli_num_rows($result) > 0) {
         function drawMarker(event) {
             var pos = event.latLng;
 
-            var newmk = new google.maps.Marker({
+            var newMarker = new google.maps.Marker({
                 position: pos,
                 map: map,
                 draggable: true
             });
 
-            newmk.addListener("dragend", dragEvent);
+            newMarker.addListener("dragend", dragEvent);
         }
 
         function dragEvent(event) {
             window.alert(event.latLng.lat() + " " + event.latLng.lng());
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R_TR6n5C2k6qYsA_fIH-rvZX5kPTM9Q&callback=drawmap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJG1gcDkonYdrBI4nREtk4mUJ_l245fys&callback=drawmap"></script>
 </body>
 
 </html>
